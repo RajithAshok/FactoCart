@@ -14,15 +14,17 @@ class ShoppingCartStruct extends FFFirebaseStruct {
     int? quantity,
     DocumentReference? userref,
     double? totalPrice,
-    ItemDeetsStruct? items,
     String? vendorsname,
+    DateTime? createdAt,
+    String? userAddress,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _proref = proref,
         _quantity = quantity,
         _userref = userref,
         _totalPrice = totalPrice,
-        _items = items,
         _vendorsname = vendorsname,
+        _createdAt = createdAt,
+        _userAddress = userAddress,
         super(firestoreUtilData);
 
   // "proref" field.
@@ -51,19 +53,23 @@ class ShoppingCartStruct extends FFFirebaseStruct {
   void incrementTotalPrice(double amount) => _totalPrice = totalPrice + amount;
   bool hasTotalPrice() => _totalPrice != null;
 
-  // "items" field.
-  ItemDeetsStruct? _items;
-  ItemDeetsStruct get items => _items ?? ItemDeetsStruct();
-  set items(ItemDeetsStruct? val) => _items = val;
-  void updateItems(Function(ItemDeetsStruct) updateFn) =>
-      updateFn(_items ??= ItemDeetsStruct());
-  bool hasItems() => _items != null;
-
   // "vendorsname" field.
   String? _vendorsname;
   String get vendorsname => _vendorsname ?? '';
   set vendorsname(String? val) => _vendorsname = val;
   bool hasVendorsname() => _vendorsname != null;
+
+  // "created_at" field.
+  DateTime? _createdAt;
+  DateTime? get createdAt => _createdAt;
+  set createdAt(DateTime? val) => _createdAt = val;
+  bool hasCreatedAt() => _createdAt != null;
+
+  // "userAddress" field.
+  String? _userAddress;
+  String get userAddress => _userAddress ?? '';
+  set userAddress(String? val) => _userAddress = val;
+  bool hasUserAddress() => _userAddress != null;
 
   static ShoppingCartStruct fromMap(Map<String, dynamic> data) =>
       ShoppingCartStruct(
@@ -71,8 +77,9 @@ class ShoppingCartStruct extends FFFirebaseStruct {
         quantity: castToType<int>(data['quantity']),
         userref: data['userref'] as DocumentReference?,
         totalPrice: castToType<double>(data['totalPrice']),
-        items: ItemDeetsStruct.maybeFromMap(data['items']),
         vendorsname: data['vendorsname'] as String?,
+        createdAt: data['created_at'] as DateTime?,
+        userAddress: data['userAddress'] as String?,
       );
 
   static ShoppingCartStruct? maybeFromMap(dynamic data) =>
@@ -83,8 +90,9 @@ class ShoppingCartStruct extends FFFirebaseStruct {
         'quantity': _quantity,
         'userref': _userref,
         'totalPrice': _totalPrice,
-        'items': _items?.toMap(),
         'vendorsname': _vendorsname,
+        'created_at': _createdAt,
+        'userAddress': _userAddress,
       }.withoutNulls;
 
   @override
@@ -105,12 +113,16 @@ class ShoppingCartStruct extends FFFirebaseStruct {
           _totalPrice,
           ParamType.double,
         ),
-        'items': serializeParam(
-          _items,
-          ParamType.DataStruct,
-        ),
         'vendorsname': serializeParam(
           _vendorsname,
+          ParamType.String,
+        ),
+        'created_at': serializeParam(
+          _createdAt,
+          ParamType.DateTime,
+        ),
+        'userAddress': serializeParam(
+          _userAddress,
           ParamType.String,
         ),
       }.withoutNulls;
@@ -139,14 +151,18 @@ class ShoppingCartStruct extends FFFirebaseStruct {
           ParamType.double,
           false,
         ),
-        items: deserializeStructParam(
-          data['items'],
-          ParamType.DataStruct,
-          false,
-          structBuilder: ItemDeetsStruct.fromSerializableMap,
-        ),
         vendorsname: deserializeParam(
           data['vendorsname'],
+          ParamType.String,
+          false,
+        ),
+        createdAt: deserializeParam(
+          data['created_at'],
+          ParamType.DateTime,
+          false,
+        ),
+        userAddress: deserializeParam(
+          data['userAddress'],
           ParamType.String,
           false,
         ),
@@ -162,13 +178,21 @@ class ShoppingCartStruct extends FFFirebaseStruct {
         quantity == other.quantity &&
         userref == other.userref &&
         totalPrice == other.totalPrice &&
-        items == other.items &&
-        vendorsname == other.vendorsname;
+        vendorsname == other.vendorsname &&
+        createdAt == other.createdAt &&
+        userAddress == other.userAddress;
   }
 
   @override
-  int get hashCode => const ListEquality()
-      .hash([proref, quantity, userref, totalPrice, items, vendorsname]);
+  int get hashCode => const ListEquality().hash([
+        proref,
+        quantity,
+        userref,
+        totalPrice,
+        vendorsname,
+        createdAt,
+        userAddress
+      ]);
 }
 
 ShoppingCartStruct createShoppingCartStruct({
@@ -176,8 +200,9 @@ ShoppingCartStruct createShoppingCartStruct({
   int? quantity,
   DocumentReference? userref,
   double? totalPrice,
-  ItemDeetsStruct? items,
   String? vendorsname,
+  DateTime? createdAt,
+  String? userAddress,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -188,8 +213,9 @@ ShoppingCartStruct createShoppingCartStruct({
       quantity: quantity,
       userref: userref,
       totalPrice: totalPrice,
-      items: items ?? (clearUnsetFields ? ItemDeetsStruct() : null),
       vendorsname: vendorsname,
+      createdAt: createdAt,
+      userAddress: userAddress,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
@@ -246,14 +272,6 @@ Map<String, dynamic> getShoppingCartFirestoreData(
     return {};
   }
   final firestoreData = mapToFirestore(shoppingCart.toMap());
-
-  // Handle nested data for "items" field.
-  addItemDeetsStructData(
-    firestoreData,
-    shoppingCart.hasItems() ? shoppingCart.items : null,
-    'items',
-    forFieldValue,
-  );
 
   // Add any Firestore field values
   shoppingCart.firestoreUtilData.fieldValues

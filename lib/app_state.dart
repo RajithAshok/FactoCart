@@ -49,6 +49,20 @@ class FFAppState extends ChangeNotifier {
               .toList() ??
           _cartsum2;
     });
+    await _safeInitAsync(() async {
+      _postCheck = (await secureStorage.getStringList('ff_postCheck'))
+              ?.map((x) {
+                try {
+                  return ShoppingCartStruct.fromSerializableMap(jsonDecode(x));
+                } catch (e) {
+                  print("Can't decode persisted data type. Error: $e.");
+                  return null;
+                }
+              })
+              .withoutNulls
+              .toList() ??
+          _postCheck;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -181,6 +195,51 @@ class FFAppState extends ChangeNotifier {
 
   void insertAtIndexInProref(int _index, DocumentReference _value) {
     _proref.insert(_index, _value);
+  }
+
+  List<ShoppingCartStruct> _postCheck = [];
+  List<ShoppingCartStruct> get postCheck => _postCheck;
+  set postCheck(List<ShoppingCartStruct> _value) {
+    _postCheck = _value;
+    secureStorage.setStringList(
+        'ff_postCheck', _value.map((x) => x.serialize()).toList());
+  }
+
+  void deletePostCheck() {
+    secureStorage.delete(key: 'ff_postCheck');
+  }
+
+  void addToPostCheck(ShoppingCartStruct _value) {
+    _postCheck.add(_value);
+    secureStorage.setStringList(
+        'ff_postCheck', _postCheck.map((x) => x.serialize()).toList());
+  }
+
+  void removeFromPostCheck(ShoppingCartStruct _value) {
+    _postCheck.remove(_value);
+    secureStorage.setStringList(
+        'ff_postCheck', _postCheck.map((x) => x.serialize()).toList());
+  }
+
+  void removeAtIndexFromPostCheck(int _index) {
+    _postCheck.removeAt(_index);
+    secureStorage.setStringList(
+        'ff_postCheck', _postCheck.map((x) => x.serialize()).toList());
+  }
+
+  void updatePostCheckAtIndex(
+    int _index,
+    ShoppingCartStruct Function(ShoppingCartStruct) updateFn,
+  ) {
+    _postCheck[_index] = updateFn(_postCheck[_index]);
+    secureStorage.setStringList(
+        'ff_postCheck', _postCheck.map((x) => x.serialize()).toList());
+  }
+
+  void insertAtIndexInPostCheck(int _index, ShoppingCartStruct _value) {
+    _postCheck.insert(_index, _value);
+    secureStorage.setStringList(
+        'ff_postCheck', _postCheck.map((x) => x.serialize()).toList());
   }
 }
 

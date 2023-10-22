@@ -549,7 +549,7 @@ class _AddProductPageWidgetState extends State<AddProductPageWidget> {
                                       desc: _model.textController2.text,
                                       image: _model.uploadedFileUrl,
                                       name: _model.textController1.text,
-                                      price: int.tryParse(
+                                      price: double.tryParse(
                                           _model.textController3.text),
                                       stock: int.tryParse(
                                           _model.textController4.text),

@@ -14,19 +14,19 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'auth4_model.dart';
-export 'auth4_model.dart';
+import 'auth_page_model.dart';
+export 'auth_page_model.dart';
 
-class Auth4Widget extends StatefulWidget {
-  const Auth4Widget({Key? key}) : super(key: key);
+class AuthPageWidget extends StatefulWidget {
+  const AuthPageWidget({Key? key}) : super(key: key);
 
   @override
-  _Auth4WidgetState createState() => _Auth4WidgetState();
+  _AuthPageWidgetState createState() => _AuthPageWidgetState();
 }
 
-class _Auth4WidgetState extends State<Auth4Widget>
+class _AuthPageWidgetState extends State<AuthPageWidget>
     with TickerProviderStateMixin {
-  late Auth4Model _model;
+  late AuthPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -103,7 +103,7 @@ class _Auth4WidgetState extends State<Auth4Widget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => Auth4Model());
+    _model = createModel(context, () => AuthPageModel());
 
     _model.tabBarController = TabController(
       vsync: this,

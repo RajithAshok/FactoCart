@@ -1,5 +1,5 @@
 // Export pages
-export '/pages/auth/auth4/auth4_widget.dart' show Auth4Widget;
+export '/pages/auth/auth_page/auth_page_widget.dart' show AuthPageWidget;
 export '/pages/user_pages/categories/categories_widget.dart'
     show CategoriesWidget;
 export '/pages/user_pages/profile/profile_widget.dart' show ProfileWidget;
@@ -35,3 +35,5 @@ export '/pages/vendor_pages/orderhistory/orderhistory_widget.dart'
     show OrderhistoryWidget;
 export '/pages/vendor_pages/order_history_details/order_history_details_widget.dart'
     show OrderHistoryDetailsWidget;
+export '/pages/user_pages/offerspage/offerspage_widget.dart'
+    show OfferspageWidget;

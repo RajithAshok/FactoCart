@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -196,6 +197,12 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                             focusNode: focusNode,
                                             onEditingComplete:
                                                 onEditingComplete,
+                                            onChanged: (_) =>
+                                                EasyDebounce.debounce(
+                                              '_model.inputsearchController',
+                                              Duration(milliseconds: 2000),
+                                              () => setState(() {}),
+                                            ),
                                             onFieldSubmitted: (_) async {
                                               safeSetState(() {
                                                 _model.simpleSearchResults =
@@ -221,7 +228,6 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                                 _model.searchBool = true;
                                               });
                                             },
-                                            autofocus: true,
                                             obscureText: false,
                                             decoration: InputDecoration(
                                               labelText:
@@ -277,6 +283,27 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                                 Icons.search,
                                                 size: 16.0,
                                               ),
+                                              suffixIcon: _model
+                                                      .inputsearchController!
+                                                      .text
+                                                      .isNotEmpty
+                                                  ? InkWell(
+                                                      onTap: () async {
+                                                        _model
+                                                            .inputsearchController
+                                                            ?.clear();
+                                                        setState(() {});
+                                                      },
+                                                      child: Icon(
+                                                        Icons.clear,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        size: 24.0,
+                                                      ),
+                                                    )
+                                                  : null,
                                             ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium,

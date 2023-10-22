@@ -38,6 +38,13 @@ class EditProductPageModel extends FlutterFlowModel<EditProductPageWidget> {
   FocusNode? priceTextFieldFocusNode;
   TextEditingController? priceTextFieldController;
   String? Function(BuildContext, String?)? priceTextFieldControllerValidator;
+  // State field(s) for SwitchListTile widget.
+  bool? switchListTileValue;
+  // State field(s) for discPriceTextField widget.
+  FocusNode? discPriceTextFieldFocusNode;
+  TextEditingController? discPriceTextFieldController;
+  String? Function(BuildContext, String?)?
+      discPriceTextFieldControllerValidator;
 
   /// Initialization and disposal methods.
 
@@ -56,6 +63,9 @@ class EditProductPageModel extends FlutterFlowModel<EditProductPageWidget> {
 
     priceTextFieldFocusNode?.dispose();
     priceTextFieldController?.dispose();
+
+    discPriceTextFieldFocusNode?.dispose();
+    discPriceTextFieldController?.dispose();
   }
 
   /// Action blocks are added here.

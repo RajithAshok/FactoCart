@@ -793,7 +793,7 @@ class _VendorProfileWidgetState extends State<VendorProfileWidget> {
                                             .clearRedirectLocation();
 
                                         context.goNamedAuth(
-                                          'Auth4',
+                                          'AuthPage',
                                           context.mounted,
                                           extra: <String, dynamic>{
                                             kTransitionInfoKey: TransitionInfo(

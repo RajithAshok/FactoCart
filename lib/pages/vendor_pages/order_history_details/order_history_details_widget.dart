@@ -1,5 +1,4 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -17,12 +16,7 @@ import 'order_history_details_model.dart';
 export 'order_history_details_model.dart';
 
 class OrderHistoryDetailsWidget extends StatefulWidget {
-  const OrderHistoryDetailsWidget({
-    Key? key,
-    required this.orderref,
-  }) : super(key: key);
-
-  final OrdersRecord? orderref;
+  const OrderHistoryDetailsWidget({Key? key}) : super(key: key);
 
   @override
   _OrderHistoryDetailsWidgetState createState() =>
@@ -156,10 +150,7 @@ class _OrderHistoryDetailsWidgetState extends State<OrderHistoryDetailsWidget>
                           children: [
                             Expanded(
                               child: Text(
-                                valueOrDefault<String>(
-                                  widget.orderref?.name,
-                                  '--',
-                                ),
+                                'New Release',
                                 style:
                                     FlutterFlowTheme.of(context).headlineMedium,
                               ),
@@ -167,31 +158,10 @@ class _OrderHistoryDetailsWidgetState extends State<OrderHistoryDetailsWidget>
                             Container(
                               height: 32.0,
                               decoration: BoxDecoration(
-                                color: () {
-                                  if (widget.orderref?.status == 'Pending') {
-                                    return FlutterFlowTheme.of(context).accent3;
-                                  } else if (widget.orderref?.status ==
-                                      'Accepted') {
-                                    return FlutterFlowTheme.of(context).accent2;
-                                  } else {
-                                    return FlutterFlowTheme.of(context).accent1;
-                                  }
-                                }(),
+                                color: FlutterFlowTheme.of(context).accent3,
                                 borderRadius: BorderRadius.circular(8.0),
                                 border: Border.all(
-                                  color: () {
-                                    if (widget.orderref?.status == 'Pending') {
-                                      return FlutterFlowTheme.of(context)
-                                          .tertiary;
-                                    } else if (widget.orderref?.status ==
-                                        'Accepted') {
-                                      return FlutterFlowTheme.of(context)
-                                          .secondary;
-                                    } else {
-                                      return FlutterFlowTheme.of(context)
-                                          .primary;
-                                    }
-                                  }(),
+                                  color: FlutterFlowTheme.of(context).tertiary,
                                   width: 2.0,
                                 ),
                               ),
@@ -200,43 +170,20 @@ class _OrderHistoryDetailsWidgetState extends State<OrderHistoryDetailsWidget>
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     12.0, 0.0, 12.0, 0.0),
                                 child: Text(
-                                  valueOrDefault<String>(
-                                    widget.orderref?.status,
-                                    '--',
-                                  ),
+                                  'Pending',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Readex Pro',
-                                        color: () {
-                                          if (widget.orderref?.status ==
-                                              'Pending') {
-                                            return FlutterFlowTheme.of(context)
-                                                .tertiary;
-                                          } else if (widget.orderref?.status ==
-                                              'Accepted') {
-                                            return FlutterFlowTheme.of(context)
-                                                .secondary;
-                                          } else {
-                                            return FlutterFlowTheme.of(context)
-                                                .primary;
-                                          }
-                                        }(),
+                                        color: FlutterFlowTheme.of(context)
+                                            .tertiary,
                                         fontWeight: FontWeight.w500,
                                       ),
                                 ),
                               ),
                             ),
                             Text(
-                              valueOrDefault<String>(
-                                formatNumber(
-                                  widget.orderref?.amount,
-                                  formatType: FormatType.decimal,
-                                  decimalType: DecimalType.automatic,
-                                  currency: '₹',
-                                ),
-                                '--',
-                              ),
+                              '\$126.20',
                               style: FlutterFlowTheme.of(context).headlineSmall,
                             ),
                           ].divide(SizedBox(width: 16.0)),
@@ -245,7 +192,7 @@ class _OrderHistoryDetailsWidgetState extends State<OrderHistoryDetailsWidget>
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 4.0, 0.0, 8.0),
                           child: Text(
-                            'Ordered on: ${dateTimeFormat('MMMEd', widget.orderref?.createdAt)} at ${dateTimeFormat('jm', widget.orderref?.createdAt)}',
+                            'Ordered on:  at ',
                             style: FlutterFlowTheme.of(context).labelMedium,
                           ),
                         ),
@@ -288,10 +235,7 @@ class _OrderHistoryDetailsWidgetState extends State<OrderHistoryDetailsWidget>
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            valueOrDefault<String>(
-                                              widget.orderref?.address,
-                                              '--',
-                                            ),
+                                            'Hello World',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium,
                                           ),
@@ -310,158 +254,101 @@ class _OrderHistoryDetailsWidgetState extends State<OrderHistoryDetailsWidget>
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 12.0, 0.0, 0.0),
-                          child: Builder(
-                            builder: (context) {
-                              final orderedItems =
-                                  widget.orderref?.itemsordered?.toList() ?? [];
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: orderedItems.length,
-                                itemBuilder: (context, orderedItemsIndex) {
-                                  final orderedItemsItem =
-                                      orderedItems[orderedItemsIndex];
-                                  return FutureBuilder<ProductRecord>(
-                                    future: ProductRecord.getDocumentOnce(
-                                        orderedItemsItem),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 50.0,
-                                            height: 50.0,
-                                            child: CircularProgressIndicator(
-                                              valueColor:
-                                                  AlwaysStoppedAnimation<Color>(
-                                                FlutterFlowTheme.of(context)
-                                                    .lineColor,
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      final menuItemProductRecord =
-                                          snapshot.data!;
-                                      return Container(
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                1.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
+                          child: ListView(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            children: [
+                              Container(
+                                width: MediaQuery.sizeOf(context).width * 1.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 4.0, 0.0, 8.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 1.0, 1.0, 1.0),
+                                        child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(12.0),
+                                          child: CachedNetworkImage(
+                                            fadeInDuration:
+                                                Duration(milliseconds: 500),
+                                            fadeOutDuration:
+                                                Duration(milliseconds: 500),
+                                            imageUrl:
+                                                'https://static.nike.com/a/images/t_prod_ss/w_640,c_limit,f_auto/95c8dcbe-3d3f-46a9-9887-43161ef949c5/sleepers-of-the-week-release-date.jpg',
+                                            width: 70.0,
+                                            height: 70.0,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
+                                      ),
+                                      Expanded(
                                         child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 4.0, 0.0, 8.0),
-                                          child: Row(
+                                                  8.0, 0.0, 4.0, 0.0),
+                                          child: Column(
                                             mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    'Title',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyLarge,
+                                                  ),
+                                                  Text(
+                                                    '\$120.00',
+                                                    textAlign: TextAlign.end,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .titleLarge,
+                                                  ),
+                                                ],
+                                              ),
                                               Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        0.0, 1.0, 1.0, 1.0),
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          12.0),
-                                                  child: CachedNetworkImage(
-                                                    fadeInDuration: Duration(
-                                                        milliseconds: 500),
-                                                    fadeOutDuration: Duration(
-                                                        milliseconds: 500),
-                                                    imageUrl:
-                                                        menuItemProductRecord
-                                                            .image,
-                                                    width: 70.0,
-                                                    height: 70.0,
-                                                    fit: BoxFit.cover,
+                                                        0.0, 4.0, 8.0, 0.0),
+                                                child: AutoSizeText(
+                                                  'Quantity: '
+                                                      .maybeHandleOverflow(
+                                                    maxChars: 70,
+                                                    replacement: '…',
                                                   ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          8.0, 0.0, 4.0, 0.0),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Text(
-                                                            menuItemProductRecord
-                                                                .name,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyLarge,
-                                                          ),
-                                                          Text(
-                                                            formatNumber(
-                                                              menuItemProductRecord
-                                                                  .price,
-                                                              formatType:
-                                                                  FormatType
-                                                                      .decimal,
-                                                              decimalType:
-                                                                  DecimalType
-                                                                      .automatic,
-                                                              currency: '₹',
-                                                            ),
-                                                            textAlign:
-                                                                TextAlign.end,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .titleLarge,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    4.0,
-                                                                    8.0,
-                                                                    0.0),
-                                                        child: AutoSizeText(
-                                                          'Quanity: 1',
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .labelSmall,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                  textAlign: TextAlign.start,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .labelSmall,
                                                 ),
                                               ),
                                             ],
                                           ),
                                         ),
-                                      );
-                                    },
-                                  );
-                                },
-                              );
-                            },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],

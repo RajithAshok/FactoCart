@@ -799,7 +799,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                             .clearRedirectLocation();
 
                                         context.goNamedAuth(
-                                          'Auth4',
+                                          'AuthPage',
                                           context.mounted,
                                           extra: <String, dynamic>{
                                             kTransitionInfoKey: TransitionInfo(

@@ -1,8 +1,8 @@
 import '/backend/backend.dart';
+import '/components/add_bottom_sheet/add_bottom_sheet_widget.dart';
 import '/components/rating_bar/rating_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -178,7 +178,7 @@ class _ProductlistWidgetState extends State<ProductlistWidget> {
                                         crossAxisCount: 2,
                                         crossAxisSpacing: 10.0,
                                         mainAxisSpacing: 10.0,
-                                        childAspectRatio: 0.69,
+                                        childAspectRatio: 0.67,
                                       ),
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
@@ -222,40 +222,105 @@ class _ProductlistWidgetState extends State<ProductlistWidget> {
                                                     mainAxisAlignment:
                                                         MainAxisAlignment.end,
                                                     children: [
-                                                      Container(
-                                                        width: 30.0,
-                                                        height: 30.0,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              Color(0xFFF5F5F5),
+                                                      FFButtonWidget(
+                                                        onPressed: () async {
+                                                          await showModalBottomSheet(
+                                                            isScrollControlled:
+                                                                true,
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            enableDrag: false,
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return GestureDetector(
+                                                                onTap: () => _model
+                                                                        .unfocusNode
+                                                                        .canRequestFocus
+                                                                    ? FocusScope.of(
+                                                                            context)
+                                                                        .requestFocus(_model
+                                                                            .unfocusNode)
+                                                                    : FocusScope.of(
+                                                                            context)
+                                                                        .unfocus(),
+                                                                child: Padding(
+                                                                  padding: MediaQuery
+                                                                      .viewInsetsOf(
+                                                                          context),
+                                                                  child:
+                                                                      AddBottomSheetWidget(
+                                                                    proref: gridViewProductRecord
+                                                                        .reference,
+                                                                    price: gridViewProductRecord.offer ==
+                                                                            true
+                                                                        ? gridViewProductRecord
+                                                                            .discPrice
+                                                                        : gridViewProductRecord
+                                                                            .price,
+                                                                    name: gridViewProductRecord
+                                                                        .name,
+                                                                    vendorsname:
+                                                                        gridViewProductRecord
+                                                                            .vendorName,
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                          ).then((value) =>
+                                                              safeSetState(
+                                                                  () {}));
+                                                        },
+                                                        text: '',
+                                                        icon: Icon(
+                                                          Icons
+                                                              .shopping_cart_outlined,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          size: 20.0,
+                                                        ),
+                                                        options:
+                                                            FFButtonOptions(
+                                                          width: 40.0,
+                                                          height: 40.0,
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      5.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          iconPadding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
+                                                          textStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Readex Pro',
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: Colors
+                                                                .transparent,
+                                                            width: 1.0,
+                                                          ),
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
-                                                                      15.0),
-                                                        ),
-                                                        child: ToggleIcon(
-                                                          onPressed: () async {
-                                                            setState(() => FFAppState()
-                                                                    .searchActive =
-                                                                !FFAppState()
-                                                                    .searchActive);
-                                                          },
-                                                          value: FFAppState()
-                                                              .searchActive,
-                                                          onIcon: Icon(
-                                                            Icons.shopping_cart,
-                                                            color: Color(
-                                                                0xFF010162),
-                                                            size: 14.0,
-                                                          ),
-                                                          offIcon: Icon(
-                                                            Icons
-                                                                .shopping_cart_outlined,
-                                                            color: Color(
-                                                                0xFF010162),
-                                                            size: 14.0,
-                                                          ),
+                                                                      16.0),
                                                         ),
                                                       ),
                                                     ],
@@ -604,38 +669,106 @@ class _ProductlistWidgetState extends State<ProductlistWidget> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.end,
                                                   children: [
-                                                    Container(
-                                                      width: 30.0,
-                                                      height: 30.0,
-                                                      decoration: BoxDecoration(
+                                                    FFButtonWidget(
+                                                      onPressed: () async {
+                                                        await showModalBottomSheet(
+                                                          isScrollControlled:
+                                                              true,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          enableDrag: false,
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return GestureDetector(
+                                                              onTap: () => _model
+                                                                      .unfocusNode
+                                                                      .canRequestFocus
+                                                                  ? FocusScope.of(
+                                                                          context)
+                                                                      .requestFocus(
+                                                                          _model
+                                                                              .unfocusNode)
+                                                                  : FocusScope.of(
+                                                                          context)
+                                                                      .unfocus(),
+                                                              child: Padding(
+                                                                padding: MediaQuery
+                                                                    .viewInsetsOf(
+                                                                        context),
+                                                                child:
+                                                                    AddBottomSheetWidget(
+                                                                  proref: gridViewProductRecord
+                                                                      .reference,
+                                                                  price: gridViewProductRecord
+                                                                              .offer ==
+                                                                          true
+                                                                      ? gridViewProductRecord
+                                                                          .discPrice
+                                                                      : gridViewProductRecord
+                                                                          .price,
+                                                                  name:
+                                                                      gridViewProductRecord
+                                                                          .name,
+                                                                  vendorsname:
+                                                                      gridViewProductRecord
+                                                                          .vendorName,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        ).then((value) =>
+                                                            safeSetState(
+                                                                () {}));
+                                                      },
+                                                      text: '',
+                                                      icon: Icon(
+                                                        Icons
+                                                            .shopping_cart_outlined,
                                                         color:
-                                                            Color(0xFFF5F5F5),
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        size: 20.0,
+                                                      ),
+                                                      options: FFButtonOptions(
+                                                        width: 40.0,
+                                                        height: 40.0,
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    5.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        iconPadding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .secondaryBackground,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmall
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Readex Pro',
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                        borderSide: BorderSide(
+                                                          color: Colors
+                                                              .transparent,
+                                                          width: 1.0,
+                                                        ),
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(15.0),
-                                                      ),
-                                                      child: ToggleIcon(
-                                                        onPressed: () async {
-                                                          setState(() => FFAppState()
-                                                                  .searchActive =
-                                                              !FFAppState()
-                                                                  .searchActive);
-                                                        },
-                                                        value: FFAppState()
-                                                            .searchActive,
-                                                        onIcon: Icon(
-                                                          Icons.shopping_cart,
-                                                          color:
-                                                              Color(0xFF010162),
-                                                          size: 14.0,
-                                                        ),
-                                                        offIcon: Icon(
-                                                          Icons
-                                                              .shopping_cart_outlined,
-                                                          color:
-                                                              Color(0xFF010162),
-                                                          size: 14.0,
-                                                        ),
+                                                                .circular(16.0),
                                                       ),
                                                     ),
                                                   ],
@@ -979,38 +1112,106 @@ class _ProductlistWidgetState extends State<ProductlistWidget> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.end,
                                                   children: [
-                                                    Container(
-                                                      width: 30.0,
-                                                      height: 30.0,
-                                                      decoration: BoxDecoration(
+                                                    FFButtonWidget(
+                                                      onPressed: () async {
+                                                        await showModalBottomSheet(
+                                                          isScrollControlled:
+                                                              true,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          enableDrag: false,
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return GestureDetector(
+                                                              onTap: () => _model
+                                                                      .unfocusNode
+                                                                      .canRequestFocus
+                                                                  ? FocusScope.of(
+                                                                          context)
+                                                                      .requestFocus(
+                                                                          _model
+                                                                              .unfocusNode)
+                                                                  : FocusScope.of(
+                                                                          context)
+                                                                      .unfocus(),
+                                                              child: Padding(
+                                                                padding: MediaQuery
+                                                                    .viewInsetsOf(
+                                                                        context),
+                                                                child:
+                                                                    AddBottomSheetWidget(
+                                                                  proref: gridViewProductRecord
+                                                                      .reference,
+                                                                  price: gridViewProductRecord
+                                                                              .offer ==
+                                                                          true
+                                                                      ? gridViewProductRecord
+                                                                          .discPrice
+                                                                      : gridViewProductRecord
+                                                                          .price,
+                                                                  name:
+                                                                      gridViewProductRecord
+                                                                          .name,
+                                                                  vendorsname:
+                                                                      gridViewProductRecord
+                                                                          .vendorName,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        ).then((value) =>
+                                                            safeSetState(
+                                                                () {}));
+                                                      },
+                                                      text: '',
+                                                      icon: Icon(
+                                                        Icons
+                                                            .shopping_cart_outlined,
                                                         color:
-                                                            Color(0xFFF5F5F5),
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        size: 20.0,
+                                                      ),
+                                                      options: FFButtonOptions(
+                                                        width: 40.0,
+                                                        height: 40.0,
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    5.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        iconPadding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .secondaryBackground,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmall
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Readex Pro',
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                        borderSide: BorderSide(
+                                                          color: Colors
+                                                              .transparent,
+                                                          width: 1.0,
+                                                        ),
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(15.0),
-                                                      ),
-                                                      child: ToggleIcon(
-                                                        onPressed: () async {
-                                                          setState(() => FFAppState()
-                                                                  .searchActive =
-                                                              !FFAppState()
-                                                                  .searchActive);
-                                                        },
-                                                        value: FFAppState()
-                                                            .searchActive,
-                                                        onIcon: Icon(
-                                                          Icons.shopping_cart,
-                                                          color:
-                                                              Color(0xFF010162),
-                                                          size: 14.0,
-                                                        ),
-                                                        offIcon: Icon(
-                                                          Icons
-                                                              .shopping_cart_outlined,
-                                                          color:
-                                                              Color(0xFF010162),
-                                                          size: 14.0,
-                                                        ),
+                                                                .circular(16.0),
                                                       ),
                                                     ),
                                                   ],

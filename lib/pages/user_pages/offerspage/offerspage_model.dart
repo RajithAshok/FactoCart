@@ -10,7 +10,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'homepage_widget.dart' show HomepageWidget;
+import 'offerspage_widget.dart' show OfferspageWidget;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:cached_network_image/cached_network_image.dart';
@@ -23,7 +23,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:text_search/text_search.dart';
 
-class HomepageModel extends FlutterFlowModel<HomepageWidget> {
+class OfferspageModel extends FlutterFlowModel<OfferspageWidget> {
   ///  Local state fields for this page.
 
   bool searchBool = false;

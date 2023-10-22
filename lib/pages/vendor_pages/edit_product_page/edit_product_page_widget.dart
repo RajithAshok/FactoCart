@@ -43,6 +43,8 @@ class _EditProductPageWidgetState extends State<EditProductPageWidget> {
     _model.stockTextFieldFocusNode ??= FocusNode();
 
     _model.priceTextFieldFocusNode ??= FocusNode();
+
+    _model.discPriceTextFieldFocusNode ??= FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -437,18 +439,130 @@ class _EditProductPageWidgetState extends State<EditProductPageWidget> {
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 0.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: SwitchListTile.adaptive(
+                                    value: _model.switchListTileValue ??= false,
+                                    onChanged: (newValue) async {
+                                      setState(() => _model
+                                          .switchListTileValue = newValue!);
+                                    },
+                                    title: Text(
+                                      'Discount Available',
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleLarge,
+                                    ),
+                                    tileColor: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                    activeColor:
+                                        FlutterFlowTheme.of(context).primary,
+                                    activeTrackColor:
+                                        FlutterFlowTheme.of(context).accent1,
+                                    dense: false,
+                                    controlAffinity:
+                                        ListTileControlAffinity.trailing,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          if (_model.switchListTileValue == true)
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 16.0, 0.0),
+                              child: TextFormField(
+                                controller:
+                                    _model.discPriceTextFieldController ??=
+                                        TextEditingController(
+                                  text: editProductPageProductRecord.discPrice
+                                      .toString(),
+                                ),
+                                focusNode: _model.discPriceTextFieldFocusNode,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  labelText: 'Discount Price',
+                                  hintStyle:
+                                      FlutterFlowTheme.of(context).bodyLarge,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                ),
+                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                validator: _model
+                                    .discPriceTextFieldControllerValidator
+                                    .asValidator(context),
+                              ),
+                            ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
                             child: FFButtonWidget(
                               onPressed: () async {
                                 await widget.proref!
                                     .update(createProductRecordData(
                                   desc: _model.descTextFieldController.text,
                                   name: _model.nameTextFieldController.text,
-                                  price: int.tryParse(
+                                  price: double.tryParse(
                                       _model.priceTextFieldController.text),
                                   stock: int.tryParse(
                                       _model.stockTextFieldController.text),
-                                  image: _model.uploadedFileUrl,
+                                  offer: _model.switchListTileValue,
                                 ));
+                                if (_model.isDataUploading == true) {
+                                  await widget.proref!
+                                      .update(createProductRecordData(
+                                    image: _model.uploadedFileUrl,
+                                  ));
+                                } else {
+                                  await widget.proref!
+                                      .update(createProductRecordData(
+                                    image: editProductPageProductRecord.image,
+                                  ));
+                                }
+
+                                if (_model.switchListTileValue == true) {
+                                  await widget.proref!
+                                      .update(createProductRecordData(
+                                    discPrice: double.tryParse(_model
+                                        .discPriceTextFieldController.text),
+                                  ));
+                                } else {
+                                  await widget.proref!.update({
+                                    ...mapToFirestore(
+                                      {
+                                        'discPrice': FieldValue.delete(),
+                                      },
+                                    ),
+                                  });
+                                }
 
                                 context.pushNamed(
                                   'vendorHomepage',

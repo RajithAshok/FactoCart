@@ -256,6 +256,20 @@ class _ProductviewWidgetState extends State<ProductviewWidget>
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Text(
+                                        'Vendor: ${productviewProductRecord.vendorName}',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      24.0, 16.0, 24.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
                                         'DESCRIPTION',
                                         style: FlutterFlowTheme.of(context)
                                             .bodySmall
@@ -362,11 +376,19 @@ class _ProductviewWidgetState extends State<ProductviewWidget>
                                             child: AddBottomSheetWidget(
                                               proref: productviewProductRecord
                                                   .reference,
-                                              price: productviewProductRecord
-                                                  .price
-                                                  .toDouble(),
+                                              price:
+                                                  productviewProductRecord
+                                                              .offer ==
+                                                          true
+                                                      ? productviewProductRecord
+                                                          .discPrice
+                                                      : productviewProductRecord
+                                                          .price,
                                               name:
                                                   productviewProductRecord.name,
+                                              vendorsname:
+                                                  productviewProductRecord
+                                                      .vendorName,
                                             ),
                                           ),
                                         );

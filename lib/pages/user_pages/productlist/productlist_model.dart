@@ -1,8 +1,8 @@
 import '/backend/backend.dart';
+import '/components/add_bottom_sheet/add_bottom_sheet_widget.dart';
 import '/components/rating_bar/rating_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'productlist_widget.dart' show ProductlistWidget;
