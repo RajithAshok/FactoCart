@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -480,6 +481,16 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                         .userref,
                                                               ));
                                                             });
+
+                                                            await menuItemProductRecord
+                                                                .reference
+                                                                .update(
+                                                                    createProductRecordData(
+                                                              stock: menuItemProductRecord
+                                                                      .stock -
+                                                                  itemsItem
+                                                                      .quantity,
+                                                            ));
                                                           },
                                                           text: 'Checkout',
                                                           options:
@@ -685,8 +696,8 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
                       child: FFButtonWidget(
-                        onPressed: () async {
-                          setState(() {});
+                        onPressed: () {
+                          print('Button pressed ...');
                         },
                         text: 'Continue to Payment',
                         options: FFButtonOptions(

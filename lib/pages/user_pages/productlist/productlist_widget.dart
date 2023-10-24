@@ -178,7 +178,7 @@ class _ProductlistWidgetState extends State<ProductlistWidget> {
                                         crossAxisCount: 2,
                                         crossAxisSpacing: 10.0,
                                         mainAxisSpacing: 10.0,
-                                        childAspectRatio: 0.67,
+                                        childAspectRatio: 0.65,
                                       ),
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
@@ -357,7 +357,11 @@ class _ProductlistWidgetState extends State<ProductlistWidget> {
                                                       children: [
                                                         Text(
                                                           gridViewProductRecord
-                                                              .name,
+                                                              .name
+                                                              .maybeHandleOverflow(
+                                                            maxChars: 20,
+                                                            replacement: '…',
+                                                          ),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium,
@@ -635,7 +639,7 @@ class _ProductlistWidgetState extends State<ProductlistWidget> {
                                         crossAxisCount: 3,
                                         crossAxisSpacing: 90.0,
                                         mainAxisSpacing: 20.0,
-                                        childAspectRatio: 1.19,
+                                        childAspectRatio: 1.08,
                                       ),
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,

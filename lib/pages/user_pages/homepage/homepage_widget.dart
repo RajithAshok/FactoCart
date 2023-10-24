@@ -682,7 +682,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                     crossAxisCount: 2,
                                                     crossAxisSpacing: 10.0,
                                                     mainAxisSpacing: 10.0,
-                                                    childAspectRatio: 0.67,
+                                                    childAspectRatio: 0.65,
                                                   ),
                                                   shrinkWrap: true,
                                                   scrollDirection:
@@ -881,7 +881,13 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                                   children: [
                                                                     Text(
                                                                       searchresItem
-                                                                          .name,
+                                                                          .name
+                                                                          .maybeHandleOverflow(
+                                                                        maxChars:
+                                                                            20,
+                                                                        replacement:
+                                                                            '…',
+                                                                      ),
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium,
@@ -1096,7 +1102,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                     crossAxisCount: 3,
                                                     crossAxisSpacing: 90.0,
                                                     mainAxisSpacing: 20.0,
-                                                    childAspectRatio: 1.19,
+                                                    childAspectRatio: 1.08,
                                                   ),
                                                   shrinkWrap: true,
                                                   scrollDirection:
@@ -1514,7 +1520,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                     crossAxisCount: 5,
                                                     crossAxisSpacing: 5.0,
                                                     mainAxisSpacing: 30.0,
-                                                    childAspectRatio: 1.2,
+                                                    childAspectRatio: 1.0,
                                                   ),
                                                   shrinkWrap: true,
                                                   scrollDirection:
