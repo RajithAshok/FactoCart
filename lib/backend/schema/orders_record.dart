@@ -16,11 +16,6 @@ class OrdersRecord extends FirestoreRecord {
     _initializeFields();
   }
 
-  // "name" field.
-  String? _name;
-  String get name => _name ?? '';
-  bool hasName() => _name != null;
-
   // "amount" field.
   double? _amount;
   double get amount => _amount ?? 0.0;
@@ -41,16 +36,6 @@ class OrdersRecord extends FirestoreRecord {
   String get vendorName => _vendorName ?? '';
   bool hasVendorName() => _vendorName != null;
 
-  // "itemsordered" field.
-  List<DocumentReference>? _itemsordered;
-  List<DocumentReference> get itemsordered => _itemsordered ?? const [];
-  bool hasItemsordered() => _itemsordered != null;
-
-  // "fee" field.
-  double? _fee;
-  double get fee => _fee ?? 0.0;
-  bool hasFee() => _fee != null;
-
   // "user" field.
   DocumentReference? _user;
   DocumentReference? get user => _user;
@@ -61,25 +46,13 @@ class OrdersRecord extends FirestoreRecord {
   String get address => _address ?? '';
   bool hasAddress() => _address != null;
 
-  // "item" field.
-  List<ItemDeetsStruct>? _item;
-  List<ItemDeetsStruct> get item => _item ?? const [];
-  bool hasItem() => _item != null;
-
   void _initializeFields() {
-    _name = snapshotData['name'] as String?;
     _amount = castToType<double>(snapshotData['amount']);
     _status = snapshotData['status'] as String?;
     _createdAt = snapshotData['created_at'] as DateTime?;
     _vendorName = snapshotData['vendor_name'] as String?;
-    _itemsordered = getDataList(snapshotData['itemsordered']);
-    _fee = castToType<double>(snapshotData['fee']);
     _user = snapshotData['user'] as DocumentReference?;
     _address = snapshotData['address'] as String?;
-    _item = getStructList(
-      snapshotData['item'],
-      ItemDeetsStruct.fromMap,
-    );
   }
 
   static CollectionReference get collection =>
@@ -116,23 +89,19 @@ class OrdersRecord extends FirestoreRecord {
 }
 
 Map<String, dynamic> createOrdersRecordData({
-  String? name,
   double? amount,
   String? status,
   DateTime? createdAt,
   String? vendorName,
-  double? fee,
   DocumentReference? user,
   String? address,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
-      'name': name,
       'amount': amount,
       'status': status,
       'created_at': createdAt,
       'vendor_name': vendorName,
-      'fee': fee,
       'user': user,
       'address': address,
     }.withoutNulls,
@@ -146,32 +115,17 @@ class OrdersRecordDocumentEquality implements Equality<OrdersRecord> {
 
   @override
   bool equals(OrdersRecord? e1, OrdersRecord? e2) {
-    const listEquality = ListEquality();
-    return e1?.name == e2?.name &&
-        e1?.amount == e2?.amount &&
+    return e1?.amount == e2?.amount &&
         e1?.status == e2?.status &&
         e1?.createdAt == e2?.createdAt &&
         e1?.vendorName == e2?.vendorName &&
-        listEquality.equals(e1?.itemsordered, e2?.itemsordered) &&
-        e1?.fee == e2?.fee &&
         e1?.user == e2?.user &&
-        e1?.address == e2?.address &&
-        listEquality.equals(e1?.item, e2?.item);
+        e1?.address == e2?.address;
   }
 
   @override
-  int hash(OrdersRecord? e) => const ListEquality().hash([
-        e?.name,
-        e?.amount,
-        e?.status,
-        e?.createdAt,
-        e?.vendorName,
-        e?.itemsordered,
-        e?.fee,
-        e?.user,
-        e?.address,
-        e?.item
-      ]);
+  int hash(OrdersRecord? e) => const ListEquality().hash(
+      [e?.amount, e?.status, e?.createdAt, e?.vendorName, e?.user, e?.address]);
 
   @override
   bool isValidKey(Object? o) => o is OrdersRecord;

@@ -244,6 +244,67 @@ class _TopNavCustomerComponentWidgetState
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               context.pushNamed(
+                                'offerspage',
+                                extra: <String, dynamic>{
+                                  kTransitionInfoKey: TransitionInfo(
+                                    hasTransition: true,
+                                    transitionType: PageTransitionType.fade,
+                                    duration: Duration(milliseconds: 0),
+                                  ),
+                                },
+                              );
+                            },
+                            child: Container(
+                              width: 120.0,
+                              height: 50.0,
+                              decoration: BoxDecoration(
+                                color:
+                                    widget.selectedPageIndex.toString() == '9'
+                                        ? FlutterFlowTheme.of(context)
+                                            .primaryBackground
+                                        : FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                borderRadius: BorderRadius.circular(12.0),
+                                shape: BoxShape.rectangle,
+                              ),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    8.0, 8.0, 8.0, 8.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.local_offer_outlined,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 28.0,
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          12.0, 0.0, 0.0, 0.0),
+                                      child: Text(
+                                        'Offers',
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelLarge,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 16.0, 0.0),
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              context.pushNamed(
                                 'shoppingCart',
                                 extra: <String, dynamic>{
                                   kTransitionInfoKey: TransitionInfo(

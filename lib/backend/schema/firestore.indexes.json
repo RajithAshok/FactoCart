@@ -1,16 +1,16 @@
 {
   "indexes": [
     {
-      "collectionGroup": "orders",
+      "collectionGroup": "product",
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "vendor_name",
+          "fieldPath": "offer",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "created_at",
-          "order": "DESCENDING"
+          "fieldPath": "name",
+          "order": "ASCENDING"
         }
       ]
     }

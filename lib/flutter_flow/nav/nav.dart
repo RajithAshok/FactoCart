@@ -80,18 +80,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? HomepageWidget() : Auth4Widget(),
+          appStateNotifier.loggedIn ? HomepageWidget() : AuthPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? HomepageWidget() : Auth4Widget(),
+              appStateNotifier.loggedIn ? HomepageWidget() : AuthPageWidget(),
         ),
         FFRoute(
-          name: 'Auth4',
-          path: '/auth4',
-          builder: (context, params) => Auth4Widget(),
+          name: 'AuthPage',
+          path: '/authPage',
+          builder: (context, params) => AuthPageWidget(),
         ),
         FFRoute(
           name: 'categories',
@@ -204,12 +204,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'orderHistory_details',
           path: '/orderHistoryDetails',
-          asyncParams: {
-            'orderref': getDoc(['orders'], OrdersRecord.fromSnapshot),
-          },
-          builder: (context, params) => OrderHistoryDetailsWidget(
-            orderref: params.getParam('orderref', ParamType.Document),
-          ),
+          builder: (context, params) => OrderHistoryDetailsWidget(),
+        ),
+        FFRoute(
+          name: 'offerspage',
+          path: '/offerspage',
+          builder: (context, params) => OfferspageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -376,7 +376,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.location);
-            return '/auth4';
+            return '/authPage';
           }
           return null;
         },
@@ -389,15 +389,11 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).lineColor,
-                      ),
-                    ),
+              ? Container(
+                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                  child: Image.asset(
+                    'assets/images/FactoCart-LogoTransparentExpanded.png',
+                    fit: BoxFit.contain,
                   ),
                 )
               : page;

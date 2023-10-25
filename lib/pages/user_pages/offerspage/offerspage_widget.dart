@@ -21,18 +21,18 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:text_search/text_search.dart';
-import 'homepage_model.dart';
-export 'homepage_model.dart';
+import 'offerspage_model.dart';
+export 'offerspage_model.dart';
 
-class HomepageWidget extends StatefulWidget {
-  const HomepageWidget({Key? key}) : super(key: key);
+class OfferspageWidget extends StatefulWidget {
+  const OfferspageWidget({Key? key}) : super(key: key);
 
   @override
-  _HomepageWidgetState createState() => _HomepageWidgetState();
+  _OfferspageWidgetState createState() => _OfferspageWidgetState();
 }
 
-class _HomepageWidgetState extends State<HomepageWidget> {
-  late HomepageModel _model;
+class _OfferspageWidgetState extends State<OfferspageWidget> {
+  late OfferspageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late StreamSubscription<bool> _keyboardVisibilitySubscription;
@@ -41,7 +41,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => HomepageModel());
+    _model = createModel(context, () => OfferspageModel());
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -89,7 +89,12 @@ class _HomepageWidgetState extends State<HomepageWidget> {
 
     return StreamBuilder<List<ProductRecord>>(
       stream: queryProductRecord(
-        queryBuilder: (productRecord) => productRecord.orderBy('name'),
+        queryBuilder: (productRecord) => productRecord
+            .where(
+              'offer',
+              isEqualTo: true,
+            )
+            .orderBy('name'),
       ),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
@@ -109,7 +114,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
             ),
           );
         }
-        List<ProductRecord> homepageProductRecordList = snapshot.data!;
+        List<ProductRecord> offerspageProductRecordList = snapshot.data!;
         return GestureDetector(
           onTap: () => _model.unfocusNode.canRequestFocus
               ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -198,7 +203,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                   }
                                                   return functions
                                                       .getuni(
-                                                          homepageProductRecordList
+                                                          offerspageProductRecordList
                                                               .map(
                                                                   (e) => e.name)
                                                               .toList())
@@ -275,7 +280,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                       safeSetState(() {
                                                         _model.simpleSearchResults =
                                                             TextSearch(
-                                                          homepageProductRecordList
+                                                          offerspageProductRecordList
                                                               .map(
                                                                 (record) =>
                                                                     TextSearchItem(
@@ -301,6 +306,8 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                             true;
                                                       });
                                                     },
+                                                    textInputAction:
+                                                        TextInputAction.search,
                                                     obscureText: false,
                                                     decoration: InputDecoration(
                                                       labelText:
@@ -401,142 +408,65 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                     ],
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      20.0, 16.0, 20.0, 0.0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Container(
-                                        height: 200.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                        ),
-                                        child: StreamBuilder<
-                                            List<CategoriesRecord>>(
-                                          stream: queryCategoriesRecord(),
-                                          builder: (context, snapshot) {
-                                            // Customize what your widget looks like when it's loading.
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                child: SizedBox(
-                                                  width: 50.0,
-                                                  height: 50.0,
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    valueColor:
-                                                        AlwaysStoppedAnimation<
-                                                            Color>(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .lineColor,
+                                if (responsiveVisibility(
+                                  context: context,
+                                  phone: false,
+                                  tablet: false,
+                                  tabletLandscape: false,
+                                  desktop: false,
+                                ))
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        20.0, 16.0, 20.0, 0.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Container(
+                                          height: 200.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                          ),
+                                          child: StreamBuilder<
+                                              List<CategoriesRecord>>(
+                                            stream: queryCategoriesRecord(),
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 50.0,
+                                                    height: 50.0,
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      valueColor:
+                                                          AlwaysStoppedAnimation<
+                                                              Color>(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .lineColor,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                              );
-                                            }
-                                            List<CategoriesRecord>
-                                                pageViewCategoriesRecordList =
-                                                snapshot.data!;
-                                            return Container(
-                                              width: double.infinity,
-                                              height: 128.0,
-                                              child: Stack(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 40.0),
-                                                    child: PageView.builder(
-                                                      controller: _model
-                                                              .pageViewController ??=
-                                                          PageController(
-                                                              initialPage: min(
-                                                                  0,
-                                                                  pageViewCategoriesRecordList
-                                                                          .length -
-                                                                      1)),
-                                                      scrollDirection:
-                                                          Axis.horizontal,
-                                                      itemCount:
-                                                          pageViewCategoriesRecordList
-                                                              .length,
-                                                      itemBuilder: (context,
-                                                          pageViewIndex) {
-                                                        final pageViewCategoriesRecord =
-                                                            pageViewCategoriesRecordList[
-                                                                pageViewIndex];
-                                                        return InkWell(
-                                                          splashColor: Colors
-                                                              .transparent,
-                                                          focusColor: Colors
-                                                              .transparent,
-                                                          hoverColor: Colors
-                                                              .transparent,
-                                                          highlightColor: Colors
-                                                              .transparent,
-                                                          onTap: () async {
-                                                            context.pushNamed(
-                                                              'productlist',
-                                                              queryParameters: {
-                                                                'catref':
-                                                                    serializeParam(
-                                                                  pageViewCategoriesRecord
-                                                                      .reference,
-                                                                  ParamType
-                                                                      .DocumentReference,
-                                                                ),
-                                                              }.withoutNulls,
-                                                              extra: <String,
-                                                                  dynamic>{
-                                                                kTransitionInfoKey:
-                                                                    TransitionInfo(
-                                                                  hasTransition:
-                                                                      true,
-                                                                  transitionType:
-                                                                      PageTransitionType
-                                                                          .fade,
-                                                                  duration: Duration(
-                                                                      milliseconds:
-                                                                          0),
-                                                                ),
-                                                              },
-                                                            );
-                                                          },
-                                                          child: ClipRRect(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8.0),
-                                                            child:
-                                                                Image.network(
-                                                              pageViewCategoriesRecord
-                                                                  .image,
-                                                              width: 300.0,
-                                                              height: 200.0,
-                                                              fit: BoxFit.cover,
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                    ),
-                                                  ),
-                                                  Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            0.00, 1.00),
-                                                    child: Padding(
+                                                );
+                                              }
+                                              List<CategoriesRecord>
+                                                  pageViewCategoriesRecordList =
+                                                  snapshot.data!;
+                                              return Container(
+                                                width: double.infinity,
+                                                height: 128.0,
+                                                child: Stack(
+                                                  children: [
+                                                    Padding(
                                                       padding:
                                                           EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  16.0,
                                                                   0.0,
                                                                   0.0,
-                                                                  16.0),
-                                                      child: smooth_page_indicator
-                                                          .SmoothPageIndicator(
+                                                                  0.0,
+                                                                  40.0),
+                                                      child: PageView.builder(
                                                         controller: _model
                                                                 .pageViewController ??=
                                                             PageController(
@@ -545,52 +475,145 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                                     pageViewCategoriesRecordList
                                                                             .length -
                                                                         1)),
-                                                        count:
+                                                        scrollDirection:
+                                                            Axis.horizontal,
+                                                        itemCount:
                                                             pageViewCategoriesRecordList
                                                                 .length,
-                                                        axisDirection:
-                                                            Axis.horizontal,
-                                                        onDotClicked:
-                                                            (i) async {
-                                                          await _model
-                                                              .pageViewController!
-                                                              .animateToPage(
-                                                            i,
-                                                            duration: Duration(
-                                                                milliseconds:
-                                                                    500),
-                                                            curve: Curves.ease,
+                                                        itemBuilder: (context,
+                                                            pageViewIndex) {
+                                                          final pageViewCategoriesRecord =
+                                                              pageViewCategoriesRecordList[
+                                                                  pageViewIndex];
+                                                          return InkWell(
+                                                            splashColor: Colors
+                                                                .transparent,
+                                                            focusColor: Colors
+                                                                .transparent,
+                                                            hoverColor: Colors
+                                                                .transparent,
+                                                            highlightColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            onTap: () async {
+                                                              context.pushNamed(
+                                                                'productlist',
+                                                                queryParameters:
+                                                                    {
+                                                                  'catref':
+                                                                      serializeParam(
+                                                                    pageViewCategoriesRecord
+                                                                        .reference,
+                                                                    ParamType
+                                                                        .DocumentReference,
+                                                                  ),
+                                                                }.withoutNulls,
+                                                                extra: <String,
+                                                                    dynamic>{
+                                                                  kTransitionInfoKey:
+                                                                      TransitionInfo(
+                                                                    hasTransition:
+                                                                        true,
+                                                                    transitionType:
+                                                                        PageTransitionType
+                                                                            .fade,
+                                                                    duration: Duration(
+                                                                        milliseconds:
+                                                                            0),
+                                                                  ),
+                                                                },
+                                                              );
+                                                            },
+                                                            child: ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.0),
+                                                              child:
+                                                                  Image.network(
+                                                                pageViewCategoriesRecord
+                                                                    .image,
+                                                                width: 300.0,
+                                                                height: 200.0,
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              ),
+                                                            ),
                                                           );
                                                         },
-                                                        effect: smooth_page_indicator
-                                                            .ExpandingDotsEffect(
-                                                          expansionFactor: 3.0,
-                                                          spacing: 8.0,
-                                                          radius: 16.0,
-                                                          dotWidth: 6.0,
-                                                          dotHeight: 6.0,
-                                                          dotColor:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .accent1,
-                                                          activeDotColor:
-                                                              Color(0xFF010162),
-                                                          paintStyle:
-                                                              PaintingStyle
-                                                                  .fill,
+                                                      ),
+                                                    ),
+                                                    Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0.00, 1.00),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    16.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    16.0),
+                                                        child: smooth_page_indicator
+                                                            .SmoothPageIndicator(
+                                                          controller: _model
+                                                                  .pageViewController ??=
+                                                              PageController(
+                                                                  initialPage: min(
+                                                                      0,
+                                                                      pageViewCategoriesRecordList
+                                                                              .length -
+                                                                          1)),
+                                                          count:
+                                                              pageViewCategoriesRecordList
+                                                                  .length,
+                                                          axisDirection:
+                                                              Axis.horizontal,
+                                                          onDotClicked:
+                                                              (i) async {
+                                                            await _model
+                                                                .pageViewController!
+                                                                .animateToPage(
+                                                              i,
+                                                              duration: Duration(
+                                                                  milliseconds:
+                                                                      500),
+                                                              curve:
+                                                                  Curves.ease,
+                                                            );
+                                                          },
+                                                          effect: smooth_page_indicator
+                                                              .ExpandingDotsEffect(
+                                                            expansionFactor:
+                                                                3.0,
+                                                            spacing: 8.0,
+                                                            radius: 16.0,
+                                                            dotWidth: 6.0,
+                                                            dotHeight: 6.0,
+                                                            dotColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .accent1,
+                                                            activeDotColor:
+                                                                Color(
+                                                                    0xFF010162),
+                                                            paintStyle:
+                                                                PaintingStyle
+                                                                    .fill,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       20.0, 16.0, 20.0, 0.0),
@@ -621,7 +644,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                         ),
                                               ),
                                               Text(
-                                                'Product',
+                                                'Offers',
                                                 textAlign: TextAlign.start,
                                                 style:
                                                     FlutterFlowTheme.of(context)
@@ -672,7 +695,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                             .simpleSearchResults
                                                             .toList(),
                                                         _model.searchBool,
-                                                        homepageProductRecordList
+                                                        offerspageProductRecordList
                                                             .toList())
                                                     .toList();
                                                 return GridView.builder(
@@ -682,7 +705,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                     crossAxisCount: 2,
                                                     crossAxisSpacing: 10.0,
                                                     mainAxisSpacing: 10.0,
-                                                    childAspectRatio: 0.65,
+                                                    childAspectRatio: 0.69,
                                                   ),
                                                   shrinkWrap: true,
                                                   scrollDirection:
@@ -703,8 +726,8 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                                 .circular(8.0),
                                                       ),
                                                       child: Container(
-                                                        width: double.infinity,
-                                                        height: double.infinity,
+                                                        width: 160.0,
+                                                        height: 230.0,
                                                         decoration:
                                                             BoxDecoration(
                                                           color: FlutterFlowTheme
@@ -788,9 +811,9 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                                     options:
                                                                         FFButtonOptions(
                                                                       width:
-                                                                          40.0,
+                                                                          30.0,
                                                                       height:
-                                                                          40.0,
+                                                                          30.0,
                                                                       padding: EdgeInsetsDirectional.fromSTEB(
                                                                           5.0,
                                                                           0.0,
@@ -822,7 +845,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                                       ),
                                                                       borderRadius:
                                                                           BorderRadius.circular(
-                                                                              16.0),
+                                                                              100.0),
                                                                     ),
                                                                   ),
                                                                 ],
@@ -881,13 +904,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                                   children: [
                                                                     Text(
                                                                       searchresItem
-                                                                          .name
-                                                                          .maybeHandleOverflow(
-                                                                        maxChars:
-                                                                            20,
-                                                                        replacement:
-                                                                            '…',
-                                                                      ),
+                                                                          .name,
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium,
@@ -934,9 +951,10 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                                         children: [
                                                                           Text(
                                                                             formatNumber(
-                                                                              searchresItem.price,
+                                                                              searchresItem.discPrice,
                                                                               formatType: FormatType.decimal,
                                                                               decimalType: DecimalType.automatic,
+                                                                              currency: '₹',
                                                                             ),
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: 'Readex Pro',
@@ -958,25 +976,33 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                                                   ),
                                                                             ),
                                                                           ),
-                                                                          if (currentUserReference?.id ==
-                                                                              'true')
-                                                                            Padding(
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(6.0, 0.0, 0.0, 0.0),
-                                                                              child: Text(
-                                                                                '35,000',
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'Readex Pro',
-                                                                                      color: Color(0xFFFF3535),
-                                                                                      decoration: TextDecoration.lineThrough,
-                                                                                    ),
+                                                                          Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                6.0,
+                                                                                0.0,
+                                                                                0.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                Text(
+                                                                              formatNumber(
+                                                                                searchresItem.price,
+                                                                                formatType: FormatType.decimal,
+                                                                                decimalType: DecimalType.automatic,
+                                                                                currency: '₹',
                                                                               ),
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: 'Readex Pro',
+                                                                                    color: Color(0xFFFF3535),
+                                                                                    decoration: TextDecoration.lineThrough,
+                                                                                  ),
                                                                             ),
+                                                                          ),
                                                                         ],
                                                                       ),
                                                                     ),
                                                                     RatingBarWidget(
                                                                       key: Key(
-                                                                          'Keyi9v_${searchresIndex}_of_${searchres.length}'),
+                                                                          'Keyf79_${searchresIndex}_of_${searchres.length}'),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -1092,7 +1118,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                             .simpleSearchResults
                                                             .toList(),
                                                         _model.searchBool,
-                                                        homepageProductRecordList
+                                                        offerspageProductRecordList
                                                             .toList())
                                                     .toList();
                                                 return GridView.builder(
@@ -1102,7 +1128,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                     crossAxisCount: 3,
                                                     crossAxisSpacing: 90.0,
                                                     mainAxisSpacing: 20.0,
-                                                    childAspectRatio: 1.08,
+                                                    childAspectRatio: 1.19,
                                                   ),
                                                   shrinkWrap: true,
                                                   scrollDirection:
@@ -1114,50 +1140,283 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                     final searchrestabItem =
                                                         searchrestab[
                                                             searchrestabIndex];
-                                                    return Material(
-                                                      color: Colors.transparent,
-                                                      elevation: 3.0,
-                                                      shape:
-                                                          RoundedRectangleBorder(
+                                                    return Container(
+                                                      width: 160.0,
+                                                      height: 230.0,
+                                                      decoration: BoxDecoration(
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .secondaryBackground,
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(16.0),
                                                       ),
-                                                      child: Container(
-                                                        width: double.infinity,
-                                                        height: double.infinity,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryBackground,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      16.0),
-                                                          border: Border.all(
-                                                            color: Color(
-                                                                0xFFB0B0B0),
-                                                            width: 0.5,
-                                                          ),
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      16.0,
-                                                                      16.0,
-                                                                      16.0,
-                                                                      16.0),
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Row(
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    1.0,
+                                                                    1.0,
+                                                                    1.0,
+                                                                    1.0),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .end,
+                                                              children: [
+                                                                FFButtonWidget(
+                                                                  onPressed:
+                                                                      () async {
+                                                                    await showModalBottomSheet(
+                                                                      isScrollControlled:
+                                                                          true,
+                                                                      backgroundColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      enableDrag:
+                                                                          false,
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (context) {
+                                                                        return GestureDetector(
+                                                                          onTap: () => _model.unfocusNode.canRequestFocus
+                                                                              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+                                                                              : FocusScope.of(context).unfocus(),
+                                                                          child:
+                                                                              Padding(
+                                                                            padding:
+                                                                                MediaQuery.viewInsetsOf(context),
+                                                                            child:
+                                                                                AddBottomSheetWidget(
+                                                                              proref: searchrestabItem.reference,
+                                                                              price: searchrestabItem.offer == true ? searchrestabItem.discPrice : searchrestabItem.price,
+                                                                              name: searchrestabItem.name,
+                                                                              vendorsname: searchrestabItem.vendorName,
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      },
+                                                                    ).then((value) =>
+                                                                        safeSetState(
+                                                                            () {}));
+                                                                  },
+                                                                  text: '',
+                                                                  icon: Icon(
+                                                                    Icons
+                                                                        .shopping_cart_outlined,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary,
+                                                                    size: 20.0,
+                                                                  ),
+                                                                  options:
+                                                                      FFButtonOptions(
+                                                                    width: 40.0,
+                                                                    height:
+                                                                        40.0,
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            5.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    iconPadding:
+                                                                        EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryBackground,
+                                                                    textStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleSmall
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Readex Pro',
+                                                                          color:
+                                                                              Colors.white,
+                                                                        ),
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                                      color: Colors
+                                                                          .transparent,
+                                                                      width:
+                                                                          1.0,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            16.0),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          9.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            8.0),
+                                                                child: Image
+                                                                    .network(
+                                                                  searchrestabItem
+                                                                      .image,
+                                                                  width: 100.0,
+                                                                  height: 60.0,
+                                                                  fit: BoxFit
+                                                                      .contain,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          9.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Text(
+                                                                    searchrestabItem
+                                                                        .name,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium,
+                                                                  ),
+                                                                  Align(
+                                                                    alignment:
+                                                                        AlignmentDirectional(
+                                                                            -1.00,
+                                                                            0.00),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          0.0,
+                                                                          2.0,
+                                                                          0.0,
+                                                                          2.0),
+                                                                      child:
+                                                                          Text(
+                                                                        searchrestabItem
+                                                                            .vendorName,
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Readex Pro',
+                                                                              color: Color(0xFF585858),
+                                                                              fontSize: 11.0,
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            2.0,
+                                                                            0.0,
+                                                                            2.0),
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .start,
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .end,
+                                                                      children: [
+                                                                        Text(
+                                                                          searchrestabItem
+                                                                              .price
+                                                                              .toString(),
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: 'Readex Pro',
+                                                                                fontWeight: FontWeight.w600,
+                                                                              ),
+                                                                        ),
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              2.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              3.0),
+                                                                          child:
+                                                                              Text(
+                                                                            'INR',
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Readex Pro',
+                                                                                  fontSize: 9.0,
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                        if (currentUserReference?.id ==
+                                                                            'true')
+                                                                          Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                6.0,
+                                                                                0.0,
+                                                                                0.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                Text(
+                                                                              '35,000',
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: 'Readex Pro',
+                                                                                    color: Color(0xFFFF3535),
+                                                                                    decoration: TextDecoration.lineThrough,
+                                                                                  ),
+                                                                            ),
+                                                                          ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                  RatingBarWidget(
+                                                                    key: Key(
+                                                                        'Keyvyd_${searchrestabIndex}_of_${searchrestab.length}'),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          16.0,
+                                                                          0.0),
+                                                              child: Row(
                                                                 mainAxisSize:
                                                                     MainAxisSize
                                                                         .max,
@@ -1165,321 +1424,92 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                                     MainAxisAlignment
                                                                         .end,
                                                                 children: [
-                                                                  FFButtonWidget(
-                                                                    onPressed:
-                                                                        () async {
-                                                                      await showModalBottomSheet(
-                                                                        isScrollControlled:
-                                                                            true,
-                                                                        backgroundColor:
-                                                                            Colors.transparent,
-                                                                        enableDrag:
-                                                                            false,
-                                                                        context:
-                                                                            context,
-                                                                        builder:
-                                                                            (context) {
-                                                                          return GestureDetector(
-                                                                            onTap: () => _model.unfocusNode.canRequestFocus
-                                                                                ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                                                                                : FocusScope.of(context).unfocus(),
-                                                                            child:
-                                                                                Padding(
-                                                                              padding: MediaQuery.viewInsetsOf(context),
-                                                                              child: AddBottomSheetWidget(
-                                                                                proref: searchrestabItem.reference,
-                                                                                price: searchrestabItem.offer == true ? searchrestabItem.discPrice : searchrestabItem.price,
-                                                                                name: searchrestabItem.name,
-                                                                                vendorsname: searchrestabItem.vendorName,
-                                                                              ),
-                                                                            ),
-                                                                          );
-                                                                        },
-                                                                      ).then((value) =>
-                                                                          safeSetState(
-                                                                              () {}));
-                                                                    },
-                                                                    text: '',
-                                                                    icon: Icon(
-                                                                      Icons
-                                                                          .shopping_cart_outlined,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primary,
-                                                                      size:
-                                                                          20.0,
-                                                                    ),
-                                                                    options:
-                                                                        FFButtonOptions(
-                                                                      width:
-                                                                          40.0,
-                                                                      height:
-                                                                          40.0,
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          5.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                      iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryBackground,
-                                                                      textStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .titleSmall
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Readex Pro',
-                                                                            color:
-                                                                                Colors.white,
-                                                                          ),
-                                                                      borderSide:
-                                                                          BorderSide(
-                                                                        color: Colors
-                                                                            .transparent,
-                                                                        width:
-                                                                            1.0,
-                                                                      ),
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              16.0),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            9.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                child:
-                                                                    ClipRRect(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              8.0),
-                                                                  child: Image
-                                                                      .network(
-                                                                    searchrestabItem
-                                                                        .image,
-                                                                    width:
-                                                                        100.0,
-                                                                    height:
-                                                                        60.0,
-                                                                    fit: BoxFit
-                                                                        .contain,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            9.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                child: Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Text(
-                                                                      searchrestabItem
-                                                                          .name,
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium,
-                                                                    ),
-                                                                    Align(
-                                                                      alignment: AlignmentDirectional(
-                                                                          -1.00,
-                                                                          0.00),
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            2.0,
-                                                                            0.0,
-                                                                            2.0),
-                                                                        child:
-                                                                            Text(
-                                                                          searchrestabItem
-                                                                              .vendorName,
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: 'Readex Pro',
-                                                                                color: Color(0xFF585858),
-                                                                                fontSize: 11.0,
-                                                                              ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    Padding(
+                                                                  Align(
+                                                                    alignment:
+                                                                        AlignmentDirectional(
+                                                                            1.00,
+                                                                            0.00),
+                                                                    child:
+                                                                        Padding(
                                                                       padding: EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           2.0,
                                                                           0.0,
                                                                           2.0),
                                                                       child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.start,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.end,
-                                                                        children: [
-                                                                          Text(
-                                                                            searchrestabItem.price.toString(),
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Readex Pro',
-                                                                                  fontWeight: FontWeight.w600,
-                                                                                ),
-                                                                          ),
-                                                                          Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                2.0,
-                                                                                0.0,
-                                                                                0.0,
-                                                                                3.0),
-                                                                            child:
-                                                                                Text(
-                                                                              'INR',
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'Readex Pro',
-                                                                                    fontSize: 9.0,
-                                                                                  ),
-                                                                            ),
-                                                                          ),
-                                                                          if (currentUserReference?.id ==
-                                                                              'true')
-                                                                            Padding(
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(6.0, 0.0, 0.0, 0.0),
-                                                                              child: Text(
-                                                                                '35,000',
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'Readex Pro',
-                                                                                      color: Color(0xFFFF3535),
-                                                                                      decoration: TextDecoration.lineThrough,
-                                                                                    ),
+                                                                          FFButtonWidget(
+                                                                        onPressed:
+                                                                            () async {
+                                                                          context
+                                                                              .pushNamed(
+                                                                            'Productview',
+                                                                            queryParameters:
+                                                                                {
+                                                                              'proref': serializeParam(
+                                                                                searchrestabItem.reference,
+                                                                                ParamType.DocumentReference,
                                                                               ),
-                                                                            ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    RatingBarWidget(
-                                                                      key: Key(
-                                                                          'Keyzrl_${searchrestabIndex}_of_${searchrestab.length}'),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            16.0,
-                                                                            0.0),
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .end,
-                                                                  children: [
-                                                                    Align(
-                                                                      alignment: AlignmentDirectional(
-                                                                          1.00,
-                                                                          0.00),
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            2.0,
-                                                                            0.0,
-                                                                            2.0),
-                                                                        child:
-                                                                            FFButtonWidget(
-                                                                          onPressed:
-                                                                              () async {
-                                                                            context.pushNamed(
-                                                                              'Productview',
-                                                                              queryParameters: {
-                                                                                'proref': serializeParam(
-                                                                                  searchrestabItem.reference,
-                                                                                  ParamType.DocumentReference,
-                                                                                ),
-                                                                              }.withoutNulls,
-                                                                              extra: <String, dynamic>{
-                                                                                kTransitionInfoKey: TransitionInfo(
-                                                                                  hasTransition: true,
-                                                                                  transitionType: PageTransitionType.leftToRight,
-                                                                                  duration: Duration(milliseconds: 500),
-                                                                                ),
-                                                                              },
-                                                                            );
-                                                                          },
-                                                                          text:
-                                                                              '',
-                                                                          icon:
-                                                                              Icon(
-                                                                            Icons.navigate_next_sharp,
-                                                                            size:
-                                                                                15.0,
-                                                                          ),
-                                                                          options:
-                                                                              FFButtonOptions(
-                                                                            height:
-                                                                                35.0,
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                4.0,
-                                                                                4.0,
-                                                                                4.0,
-                                                                                4.0),
-                                                                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                                                                6.0,
-                                                                                2.0,
-                                                                                2.0,
-                                                                                2.0),
+                                                                            }.withoutNulls,
+                                                                            extra: <String,
+                                                                                dynamic>{
+                                                                              kTransitionInfoKey: TransitionInfo(
+                                                                                hasTransition: true,
+                                                                                transitionType: PageTransitionType.leftToRight,
+                                                                                duration: Duration(milliseconds: 500),
+                                                                              ),
+                                                                            },
+                                                                          );
+                                                                        },
+                                                                        text:
+                                                                            '',
+                                                                        icon:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .navigate_next_sharp,
+                                                                          size:
+                                                                              15.0,
+                                                                        ),
+                                                                        options:
+                                                                            FFButtonOptions(
+                                                                          height:
+                                                                              35.0,
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              4.0,
+                                                                              4.0,
+                                                                              4.0,
+                                                                              4.0),
+                                                                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                                                              6.0,
+                                                                              2.0,
+                                                                              2.0,
+                                                                              2.0),
+                                                                          color:
+                                                                              Color(0xFF080087),
+                                                                          textStyle: FlutterFlowTheme.of(context)
+                                                                              .titleSmall
+                                                                              .override(
+                                                                                fontFamily: 'Readex Pro',
+                                                                                color: Color(0xFFF8F8FF),
+                                                                              ),
+                                                                          elevation:
+                                                                              3.0,
+                                                                          borderSide:
+                                                                              BorderSide(
                                                                             color:
-                                                                                Color(0xFF080087),
-                                                                            textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                                                                  fontFamily: 'Readex Pro',
-                                                                                  color: Color(0xFFF8F8FF),
-                                                                                ),
-                                                                            elevation:
-                                                                                3.0,
-                                                                            borderSide:
-                                                                                BorderSide(
-                                                                              color: Colors.transparent,
-                                                                              width: 1.0,
-                                                                            ),
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(2.0),
+                                                                                Colors.transparent,
+                                                                            width:
+                                                                                1.0,
                                                                           ),
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(2.0),
                                                                         ),
                                                                       ),
                                                                     ),
-                                                                  ],
-                                                                ),
+                                                                  ),
+                                                                ],
                                                               ),
-                                                            ],
-                                                          ),
+                                                            ),
+                                                          ],
                                                         ),
                                                       ),
                                                     );
@@ -1506,7 +1536,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                             .simpleSearchResults
                                                             .toList(),
                                                         _model.searchBool,
-                                                        homepageProductRecordList
+                                                        offerspageProductRecordList
                                                             .toList())
                                                     .toList();
                                                 return GridView.builder(
@@ -1514,9 +1544,9 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                   gridDelegate:
                                                       SliverGridDelegateWithFixedCrossAxisCount(
                                                     crossAxisCount: 5,
-                                                    crossAxisSpacing: 30.0,
+                                                    crossAxisSpacing: 5.0,
                                                     mainAxisSpacing: 30.0,
-                                                    childAspectRatio: 0.95,
+                                                    childAspectRatio: 1.2,
                                                   ),
                                                   shrinkWrap: true,
                                                   scrollDirection:
@@ -1528,18 +1558,17 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                     final searchresdesItem =
                                                         searchresdes[
                                                             searchresdesIndex];
-                                                    return Material(
-                                                      color: Colors.transparent,
-                                                      elevation: 3.0,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(16.0),
-                                                      ),
+                                                    return Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  16.0,
+                                                                  0.0),
                                                       child: Container(
-                                                        width: double.infinity,
-                                                        height: double.infinity,
+                                                        width: 160.0,
+                                                        height: 230.0,
                                                         decoration:
                                                             BoxDecoration(
                                                           color: FlutterFlowTheme
@@ -1549,18 +1578,15 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                               BorderRadius
                                                                   .circular(
                                                                       16.0),
-                                                          border: Border.all(
-                                                            width: 0.5,
-                                                          ),
                                                         ),
                                                         child: Padding(
                                                           padding:
                                                               EdgeInsetsDirectional
                                                                   .fromSTEB(
-                                                                      16.0,
-                                                                      16.0,
-                                                                      16.0,
-                                                                      16.0),
+                                                                      1.0,
+                                                                      1.0,
+                                                                      1.0,
+                                                                      1.0),
                                                           child: Column(
                                                             mainAxisSize:
                                                                 MainAxisSize
@@ -1790,7 +1816,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                                     ),
                                                                     RatingBarWidget(
                                                                       key: Key(
-                                                                          'Keyov2_${searchresdesIndex}_of_${searchresdes.length}'),
+                                                                          'Keygv6_${searchresdesIndex}_of_${searchresdes.length}'),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -1920,7 +1946,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                           model: _model.bottomNavbarComponentModel,
                           updateCallback: () => setState(() {}),
                           child: BottomNavbarComponentWidget(
-                            selectedPageIndex: 1,
+                            selectedPageIndex: 9,
                             hidden: false,
                           ),
                         ),
@@ -1931,7 +1957,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                         model: _model.topNavCustomerComponentModel,
                         updateCallback: () => setState(() {}),
                         child: TopNavCustomerComponentWidget(
-                          selectedPageIndex: 1,
+                          selectedPageIndex: 9,
                           hidden: false,
                         ),
                       ),

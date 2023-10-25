@@ -1,4 +1,3 @@
-import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -9,12 +8,7 @@ import 'dropdown_menu_model.dart';
 export 'dropdown_menu_model.dart';
 
 class DropdownMenuWidget extends StatefulWidget {
-  const DropdownMenuWidget({
-    Key? key,
-    required this.orderRef,
-  }) : super(key: key);
-
-  final OrdersRecord? orderRef;
+  const DropdownMenuWidget({Key? key}) : super(key: key);
 
   @override
   _DropdownMenuWidgetState createState() => _DropdownMenuWidgetState();
@@ -95,18 +89,7 @@ class _DropdownMenuWidgetState extends State<DropdownMenuWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      context.pushNamed(
-                        'orderHistory_details',
-                        queryParameters: {
-                          'orderref': serializeParam(
-                            widget.orderRef,
-                            ParamType.Document,
-                          ),
-                        }.withoutNulls,
-                        extra: <String, dynamic>{
-                          'orderref': widget.orderRef,
-                        },
-                      );
+                      context.pushNamed('orderHistory_details');
                     },
                     child: Row(
                       mainAxisSize: MainAxisSize.max,

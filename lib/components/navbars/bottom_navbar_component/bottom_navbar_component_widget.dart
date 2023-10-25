@@ -109,6 +109,25 @@ class _BottomNavbarComponentWidgetState
         ),
       ],
     ),
+    'dividerOnPageLoadAnimation5': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        ScaleEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 200.ms,
+          begin: Offset(0.6, 1.0),
+          end: Offset(1.0, 1.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 200.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
   };
 
   @override
@@ -237,6 +256,48 @@ class _BottomNavbarComponentWidgetState
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Opacity(
+                  opacity: widget.selectedPageIndex == 9 ? 1.0 : 0.5,
+                  child: FlutterFlowIconButton(
+                    borderColor: Colors.transparent,
+                    borderRadius: 30.0,
+                    borderWidth: 0.0,
+                    buttonSize: 50.0,
+                    icon: Icon(
+                      Icons.local_offer_outlined,
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      size: 24.0,
+                    ),
+                    onPressed: () async {
+                      context.goNamed(
+                        'offerspage',
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                            duration: Duration(milliseconds: 0),
+                          ),
+                        },
+                      );
+                    },
+                  ),
+                ),
+                if (widget.selectedPageIndex == 9)
+                  SizedBox(
+                    width: 30.0,
+                    child: Divider(
+                      height: 2.0,
+                      thickness: 2.0,
+                      color: FlutterFlowTheme.of(context).lineColor,
+                    ),
+                  ).animateOnPageLoad(
+                      animationsMap['dividerOnPageLoadAnimation3']!),
+              ],
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Opacity(
                   opacity: widget.selectedPageIndex == 3 ? 1.0 : 0.5,
                   child: FlutterFlowIconButton(
                     borderColor: Colors.transparent,
@@ -271,7 +332,7 @@ class _BottomNavbarComponentWidgetState
                       color: FlutterFlowTheme.of(context).lineColor,
                     ),
                   ).animateOnPageLoad(
-                      animationsMap['dividerOnPageLoadAnimation3']!),
+                      animationsMap['dividerOnPageLoadAnimation4']!),
               ],
             ),
             Column(
@@ -313,7 +374,7 @@ class _BottomNavbarComponentWidgetState
                       color: FlutterFlowTheme.of(context).lineColor,
                     ),
                   ).animateOnPageLoad(
-                      animationsMap['dividerOnPageLoadAnimation4']!),
+                      animationsMap['dividerOnPageLoadAnimation5']!),
               ],
             ),
           ].divide(SizedBox(width: 16.0)).around(SizedBox(width: 16.0)),

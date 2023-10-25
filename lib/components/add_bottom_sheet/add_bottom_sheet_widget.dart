@@ -20,11 +20,13 @@ class AddBottomSheetWidget extends StatefulWidget {
     this.proref,
     this.price,
     this.name,
+    required this.vendorsname,
   }) : super(key: key);
 
   final DocumentReference? proref;
   final double? price;
   final String? name;
+  final String? vendorsname;
 
   @override
   _AddBottomSheetWidgetState createState() => _AddBottomSheetWidgetState();
@@ -148,7 +150,7 @@ class _AddBottomSheetWidgetState extends State<AddBottomSheetWidget> {
                           count.toString(),
                           style: FlutterFlowTheme.of(context).titleLarge,
                         ),
-                        count: _model.countControllerValue ??= 0,
+                        count: _model.countControllerValue ??= 1,
                         updateCount: (count) =>
                             setState(() => _model.countControllerValue = count),
                         stepSize: 1,
@@ -179,10 +181,7 @@ class _AddBottomSheetWidgetState extends State<AddBottomSheetWidget> {
                               userref: currentUserReference,
                               totalPrice:
                                   widget.price! * _model.countControllerValue!,
-                              items: ItemDeetsStruct(
-                                proref: widget.proref,
-                                quantity: _model.countControllerValue,
-                              ),
+                              vendorsname: widget.vendorsname,
                             ));
                             FFAppState().addToCartsum2(SumRefStruct(
                               totalPrice:

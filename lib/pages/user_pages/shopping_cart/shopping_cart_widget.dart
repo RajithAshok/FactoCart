@@ -226,13 +226,9 @@ class _ShoppingCartWidgetState extends State<ShoppingCartWidget> {
                                                         totalPrice:
                                                             cartitemsItem
                                                                 .totalPrice,
-                                                        items: ItemDeetsStruct(
-                                                          proref: cartitemsItem
-                                                              .proref,
-                                                          quantity:
-                                                              cartitemsItem
-                                                                  .quantity,
-                                                        ),
+                                                        vendorsname:
+                                                            cartitemsItem
+                                                                .vendorsname,
                                                       ));
                                                       FFAppState()
                                                           .removeFromCartsum2(
