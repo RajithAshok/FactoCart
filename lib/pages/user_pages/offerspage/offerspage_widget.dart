@@ -283,9 +283,10 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                           offerspageProductRecordList
                                                               .map(
                                                                 (record) =>
-                                                                    TextSearchItem(
-                                                                        record,
-                                                                        [
+                                                                    TextSearchItem
+                                                                        .fromTerms(
+                                                                            record,
+                                                                            [
                                                                       record
                                                                           .name!
                                                                     ]),
@@ -726,8 +727,8 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                                 .circular(8.0),
                                                       ),
                                                       child: Container(
-                                                        width: 160.0,
-                                                        height: 230.0,
+                                                        width: double.infinity,
+                                                        height: double.infinity,
                                                         decoration:
                                                             BoxDecoration(
                                                           color: FlutterFlowTheme
@@ -1128,7 +1129,7 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                     crossAxisCount: 3,
                                                     crossAxisSpacing: 90.0,
                                                     mainAxisSpacing: 20.0,
-                                                    childAspectRatio: 1.19,
+                                                    childAspectRatio: 1.08,
                                                   ),
                                                   shrinkWrap: true,
                                                   scrollDirection:
@@ -1140,435 +1141,18 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                     final searchrestabItem =
                                                         searchrestab[
                                                             searchrestabIndex];
-                                                    return Container(
-                                                      width: 160.0,
-                                                      height: 230.0,
-                                                      decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .secondaryBackground,
+                                                    return Material(
+                                                      color: Colors.transparent,
+                                                      elevation: 3.0,
+                                                      shape:
+                                                          RoundedRectangleBorder(
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(16.0),
                                                       ),
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    1.0,
-                                                                    1.0,
-                                                                    1.0,
-                                                                    1.0),
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .end,
-                                                              children: [
-                                                                FFButtonWidget(
-                                                                  onPressed:
-                                                                      () async {
-                                                                    await showModalBottomSheet(
-                                                                      isScrollControlled:
-                                                                          true,
-                                                                      backgroundColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      enableDrag:
-                                                                          false,
-                                                                      context:
-                                                                          context,
-                                                                      builder:
-                                                                          (context) {
-                                                                        return GestureDetector(
-                                                                          onTap: () => _model.unfocusNode.canRequestFocus
-                                                                              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                                                                              : FocusScope.of(context).unfocus(),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                MediaQuery.viewInsetsOf(context),
-                                                                            child:
-                                                                                AddBottomSheetWidget(
-                                                                              proref: searchrestabItem.reference,
-                                                                              price: searchrestabItem.offer == true ? searchrestabItem.discPrice : searchrestabItem.price,
-                                                                              name: searchrestabItem.name,
-                                                                              vendorsname: searchrestabItem.vendorName,
-                                                                            ),
-                                                                          ),
-                                                                        );
-                                                                      },
-                                                                    ).then((value) =>
-                                                                        safeSetState(
-                                                                            () {}));
-                                                                  },
-                                                                  text: '',
-                                                                  icon: Icon(
-                                                                    Icons
-                                                                        .shopping_cart_outlined,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                    size: 20.0,
-                                                                  ),
-                                                                  options:
-                                                                      FFButtonOptions(
-                                                                    width: 40.0,
-                                                                    height:
-                                                                        40.0,
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            5.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    iconPadding:
-                                                                        EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryBackground,
-                                                                    textStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .titleSmall
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Readex Pro',
-                                                                          color:
-                                                                              Colors.white,
-                                                                        ),
-                                                                    borderSide:
-                                                                        BorderSide(
-                                                                      color: Colors
-                                                                          .transparent,
-                                                                      width:
-                                                                          1.0,
-                                                                    ),
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            16.0),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          9.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            8.0),
-                                                                child: Image
-                                                                    .network(
-                                                                  searchrestabItem
-                                                                      .image,
-                                                                  width: 100.0,
-                                                                  height: 60.0,
-                                                                  fit: BoxFit
-                                                                      .contain,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          9.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Text(
-                                                                    searchrestabItem
-                                                                        .name,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium,
-                                                                  ),
-                                                                  Align(
-                                                                    alignment:
-                                                                        AlignmentDirectional(
-                                                                            -1.00,
-                                                                            0.00),
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          2.0,
-                                                                          0.0,
-                                                                          2.0),
-                                                                      child:
-                                                                          Text(
-                                                                        searchrestabItem
-                                                                            .vendorName,
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: 'Readex Pro',
-                                                                              color: Color(0xFF585858),
-                                                                              fontSize: 11.0,
-                                                                            ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            2.0,
-                                                                            0.0,
-                                                                            2.0),
-                                                                    child: Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .start,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .end,
-                                                                      children: [
-                                                                        Text(
-                                                                          searchrestabItem
-                                                                              .price
-                                                                              .toString(),
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: 'Readex Pro',
-                                                                                fontWeight: FontWeight.w600,
-                                                                              ),
-                                                                        ),
-                                                                        Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              2.0,
-                                                                              0.0,
-                                                                              0.0,
-                                                                              3.0),
-                                                                          child:
-                                                                              Text(
-                                                                            'INR',
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Readex Pro',
-                                                                                  fontSize: 9.0,
-                                                                                ),
-                                                                          ),
-                                                                        ),
-                                                                        if (currentUserReference?.id ==
-                                                                            'true')
-                                                                          Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                6.0,
-                                                                                0.0,
-                                                                                0.0,
-                                                                                0.0),
-                                                                            child:
-                                                                                Text(
-                                                                              '35,000',
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'Readex Pro',
-                                                                                    color: Color(0xFFFF3535),
-                                                                                    decoration: TextDecoration.lineThrough,
-                                                                                  ),
-                                                                            ),
-                                                                          ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                  RatingBarWidget(
-                                                                    key: Key(
-                                                                        'Keyvyd_${searchrestabIndex}_of_${searchrestab.length}'),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          16.0,
-                                                                          0.0),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .end,
-                                                                children: [
-                                                                  Align(
-                                                                    alignment:
-                                                                        AlignmentDirectional(
-                                                                            1.00,
-                                                                            0.00),
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          2.0,
-                                                                          0.0,
-                                                                          2.0),
-                                                                      child:
-                                                                          FFButtonWidget(
-                                                                        onPressed:
-                                                                            () async {
-                                                                          context
-                                                                              .pushNamed(
-                                                                            'Productview',
-                                                                            queryParameters:
-                                                                                {
-                                                                              'proref': serializeParam(
-                                                                                searchrestabItem.reference,
-                                                                                ParamType.DocumentReference,
-                                                                              ),
-                                                                            }.withoutNulls,
-                                                                            extra: <String,
-                                                                                dynamic>{
-                                                                              kTransitionInfoKey: TransitionInfo(
-                                                                                hasTransition: true,
-                                                                                transitionType: PageTransitionType.leftToRight,
-                                                                                duration: Duration(milliseconds: 500),
-                                                                              ),
-                                                                            },
-                                                                          );
-                                                                        },
-                                                                        text:
-                                                                            '',
-                                                                        icon:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .navigate_next_sharp,
-                                                                          size:
-                                                                              15.0,
-                                                                        ),
-                                                                        options:
-                                                                            FFButtonOptions(
-                                                                          height:
-                                                                              35.0,
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              4.0,
-                                                                              4.0,
-                                                                              4.0,
-                                                                              4.0),
-                                                                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                                                              6.0,
-                                                                              2.0,
-                                                                              2.0,
-                                                                              2.0),
-                                                                          color:
-                                                                              Color(0xFF080087),
-                                                                          textStyle: FlutterFlowTheme.of(context)
-                                                                              .titleSmall
-                                                                              .override(
-                                                                                fontFamily: 'Readex Pro',
-                                                                                color: Color(0xFFF8F8FF),
-                                                                              ),
-                                                                          elevation:
-                                                                              3.0,
-                                                                          borderSide:
-                                                                              BorderSide(
-                                                                            color:
-                                                                                Colors.transparent,
-                                                                            width:
-                                                                                1.0,
-                                                                          ),
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(2.0),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                      if (responsiveVisibility(
-                                        context: context,
-                                        phone: false,
-                                        tablet: false,
-                                        tabletLandscape: false,
-                                      ))
-                                        Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Builder(
-                                              builder: (context) {
-                                                final searchresdes = functions
-                                                    .getdocuments(
-                                                        _model
-                                                            .simpleSearchResults
-                                                            .toList(),
-                                                        _model.searchBool,
-                                                        offerspageProductRecordList
-                                                            .toList())
-                                                    .toList();
-                                                return GridView.builder(
-                                                  padding: EdgeInsets.zero,
-                                                  gridDelegate:
-                                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: 5,
-                                                    crossAxisSpacing: 5.0,
-                                                    mainAxisSpacing: 30.0,
-                                                    childAspectRatio: 1.2,
-                                                  ),
-                                                  shrinkWrap: true,
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  itemCount:
-                                                      searchresdes.length,
-                                                  itemBuilder: (context,
-                                                      searchresdesIndex) {
-                                                    final searchresdesItem =
-                                                        searchresdes[
-                                                            searchresdesIndex];
-                                                    return Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  16.0,
-                                                                  0.0),
                                                       child: Container(
-                                                        width: 160.0,
-                                                        height: 230.0,
+                                                        width: double.infinity,
+                                                        height: double.infinity,
                                                         decoration:
                                                             BoxDecoration(
                                                           color: FlutterFlowTheme
@@ -1578,6 +1162,11 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                               BorderRadius
                                                                   .circular(
                                                                       16.0),
+                                                          border: Border.all(
+                                                            color: Color(
+                                                                0xFFB0B0B0),
+                                                            width: 0.5,
+                                                          ),
                                                         ),
                                                         child: Padding(
                                                           padding:
@@ -1591,6 +1180,9 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                             mainAxisSize:
                                                                 MainAxisSize
                                                                     .max,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
                                                             children: [
                                                               Row(
                                                                 mainAxisSize:
@@ -1622,10 +1214,10 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                                                 Padding(
                                                                               padding: MediaQuery.viewInsetsOf(context),
                                                                               child: AddBottomSheetWidget(
-                                                                                proref: searchresdesItem.reference,
-                                                                                price: searchresdesItem.offer == true ? searchresdesItem.discPrice : searchresdesItem.price,
-                                                                                name: searchresdesItem.name,
-                                                                                vendorsname: searchresdesItem.vendorName,
+                                                                                proref: searchrestabItem.reference,
+                                                                                price: searchrestabItem.offer == true ? searchrestabItem.discPrice : searchrestabItem.price,
+                                                                                name: searchrestabItem.name,
+                                                                                vendorsname: searchrestabItem.vendorName,
                                                                               ),
                                                                             ),
                                                                           );
@@ -1702,7 +1294,7 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                                               8.0),
                                                                   child: Image
                                                                       .network(
-                                                                    searchresdesItem
+                                                                    searchrestabItem
                                                                         .image,
                                                                     width:
                                                                         100.0,
@@ -1730,7 +1322,7 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                                           .start,
                                                                   children: [
                                                                     Text(
-                                                                      searchresdesItem
+                                                                      searchrestabItem
                                                                           .name,
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
@@ -1749,7 +1341,7 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                                             2.0),
                                                                         child:
                                                                             Text(
-                                                                          searchresdesItem
+                                                                          searchrestabItem
                                                                               .vendorName,
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
@@ -1777,7 +1369,7 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                                             CrossAxisAlignment.end,
                                                                         children: [
                                                                           Text(
-                                                                            searchresdesItem.price.toString(),
+                                                                            searchrestabItem.price.toString(),
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: 'Readex Pro',
                                                                                   fontWeight: FontWeight.w600,
@@ -1816,7 +1408,7 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                                     ),
                                                                     RatingBarWidget(
                                                                       key: Key(
-                                                                          'Keygv6_${searchresdesIndex}_of_${searchresdes.length}'),
+                                                                          'Keyvyd_${searchrestabIndex}_of_${searchrestab.length}'),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -1845,7 +1437,7 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                                           Padding(
                                                                         padding: EdgeInsetsDirectional.fromSTEB(
                                                                             0.0,
-                                                                            0.0,
+                                                                            2.0,
                                                                             0.0,
                                                                             2.0),
                                                                         child:
@@ -1856,7 +1448,7 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                                               'Productview',
                                                                               queryParameters: {
                                                                                 'proref': serializeParam(
-                                                                                  searchresdesItem.reference,
+                                                                                  searchrestabItem.reference,
                                                                                   ParamType.DocumentReference,
                                                                                 ),
                                                                               }.withoutNulls,
@@ -1880,12 +1472,12 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                                           options:
                                                                               FFButtonOptions(
                                                                             height:
-                                                                                40.0,
+                                                                                35.0,
                                                                             padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                2.0,
-                                                                                2.0,
-                                                                                2.0,
-                                                                                2.0),
+                                                                                4.0,
+                                                                                4.0,
+                                                                                4.0,
+                                                                                4.0),
                                                                             iconPadding: EdgeInsetsDirectional.fromSTEB(
                                                                                 6.0,
                                                                                 2.0,
@@ -1914,6 +1506,394 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                                 ),
                                                               ),
                                                             ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      if (responsiveVisibility(
+                                        context: context,
+                                        phone: false,
+                                        tablet: false,
+                                        tabletLandscape: false,
+                                      ))
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Builder(
+                                              builder: (context) {
+                                                final searchresdes = functions
+                                                    .getdocuments(
+                                                        _model
+                                                            .simpleSearchResults
+                                                            .toList(),
+                                                        _model.searchBool,
+                                                        offerspageProductRecordList
+                                                            .toList())
+                                                    .toList();
+                                                return GridView.builder(
+                                                  padding: EdgeInsets.zero,
+                                                  gridDelegate:
+                                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                                    crossAxisCount: 5,
+                                                    crossAxisSpacing: 5.0,
+                                                    mainAxisSpacing: 30.0,
+                                                    childAspectRatio: 1.1,
+                                                  ),
+                                                  shrinkWrap: true,
+                                                  scrollDirection:
+                                                      Axis.vertical,
+                                                  itemCount:
+                                                      searchresdes.length,
+                                                  itemBuilder: (context,
+                                                      searchresdesIndex) {
+                                                    final searchresdesItem =
+                                                        searchresdes[
+                                                            searchresdesIndex];
+                                                    return Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  16.0,
+                                                                  0.0),
+                                                      child: Material(
+                                                        color:
+                                                            Colors.transparent,
+                                                        elevation: 3.0,
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      16.0),
+                                                        ),
+                                                        child: Container(
+                                                          width:
+                                                              double.infinity,
+                                                          height:
+                                                              double.infinity,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryBackground,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        16.0),
+                                                            border: Border.all(
+                                                              color: Color(
+                                                                  0xFFB0B0B0),
+                                                              width: 0.5,
+                                                            ),
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        1.0,
+                                                                        1.0,
+                                                                        1.0,
+                                                                        1.0),
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .end,
+                                                                  children: [
+                                                                    FFButtonWidget(
+                                                                      onPressed:
+                                                                          () async {
+                                                                        await showModalBottomSheet(
+                                                                          isScrollControlled:
+                                                                              true,
+                                                                          backgroundColor:
+                                                                              Colors.transparent,
+                                                                          enableDrag:
+                                                                              false,
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (context) {
+                                                                            return GestureDetector(
+                                                                              onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
+                                                                              child: Padding(
+                                                                                padding: MediaQuery.viewInsetsOf(context),
+                                                                                child: AddBottomSheetWidget(
+                                                                                  proref: searchresdesItem.reference,
+                                                                                  price: searchresdesItem.offer == true ? searchresdesItem.discPrice : searchresdesItem.price,
+                                                                                  name: searchresdesItem.name,
+                                                                                  vendorsname: searchresdesItem.vendorName,
+                                                                                ),
+                                                                              ),
+                                                                            );
+                                                                          },
+                                                                        ).then((value) =>
+                                                                            safeSetState(() {}));
+                                                                      },
+                                                                      text: '',
+                                                                      icon:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .shopping_cart_outlined,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primary,
+                                                                        size:
+                                                                            20.0,
+                                                                      ),
+                                                                      options:
+                                                                          FFButtonOptions(
+                                                                        width:
+                                                                            40.0,
+                                                                        height:
+                                                                            40.0,
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            5.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                        iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryBackground,
+                                                                        textStyle: FlutterFlowTheme.of(context)
+                                                                            .titleSmall
+                                                                            .override(
+                                                                              fontFamily: 'Readex Pro',
+                                                                              color: Colors.white,
+                                                                            ),
+                                                                        borderSide:
+                                                                            BorderSide(
+                                                                          color:
+                                                                              Colors.transparent,
+                                                                          width:
+                                                                              1.0,
+                                                                        ),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(16.0),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          9.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child:
+                                                                      ClipRRect(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            8.0),
+                                                                    child: Image
+                                                                        .network(
+                                                                      searchresdesItem
+                                                                          .image,
+                                                                      width:
+                                                                          100.0,
+                                                                      height:
+                                                                          60.0,
+                                                                      fit: BoxFit
+                                                                          .contain,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          9.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Text(
+                                                                        searchresdesItem
+                                                                            .name,
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium,
+                                                                      ),
+                                                                      Align(
+                                                                        alignment: AlignmentDirectional(
+                                                                            -1.00,
+                                                                            0.00),
+                                                                        child:
+                                                                            Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              0.0,
+                                                                              2.0,
+                                                                              0.0,
+                                                                              2.0),
+                                                                          child:
+                                                                              Text(
+                                                                            searchresdesItem.vendorName,
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Readex Pro',
+                                                                                  color: Color(0xFF585858),
+                                                                                  fontSize: 11.0,
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            2.0,
+                                                                            0.0,
+                                                                            2.0),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.start,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.end,
+                                                                          children: [
+                                                                            Text(
+                                                                              searchresdesItem.price.toString(),
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: 'Readex Pro',
+                                                                                    fontWeight: FontWeight.w600,
+                                                                                  ),
+                                                                            ),
+                                                                            Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(2.0, 0.0, 0.0, 3.0),
+                                                                              child: Text(
+                                                                                'INR',
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: 'Readex Pro',
+                                                                                      fontSize: 9.0,
+                                                                                    ),
+                                                                              ),
+                                                                            ),
+                                                                            if (currentUserReference?.id ==
+                                                                                'true')
+                                                                              Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(6.0, 0.0, 0.0, 0.0),
+                                                                                child: Text(
+                                                                                  '35,000',
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                        fontFamily: 'Readex Pro',
+                                                                                        color: Color(0xFFFF3535),
+                                                                                        decoration: TextDecoration.lineThrough,
+                                                                                      ),
+                                                                                ),
+                                                                              ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      RatingBarWidget(
+                                                                        key: Key(
+                                                                            'Keygv6_${searchresdesIndex}_of_${searchresdes.length}'),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          16.0,
+                                                                          0.0),
+                                                                  child: Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .end,
+                                                                    children: [
+                                                                      Align(
+                                                                        alignment: AlignmentDirectional(
+                                                                            1.00,
+                                                                            0.00),
+                                                                        child:
+                                                                            Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              2.0),
+                                                                          child:
+                                                                              FFButtonWidget(
+                                                                            onPressed:
+                                                                                () async {
+                                                                              context.pushNamed(
+                                                                                'Productview',
+                                                                                queryParameters: {
+                                                                                  'proref': serializeParam(
+                                                                                    searchresdesItem.reference,
+                                                                                    ParamType.DocumentReference,
+                                                                                  ),
+                                                                                }.withoutNulls,
+                                                                                extra: <String, dynamic>{
+                                                                                  kTransitionInfoKey: TransitionInfo(
+                                                                                    hasTransition: true,
+                                                                                    transitionType: PageTransitionType.leftToRight,
+                                                                                    duration: Duration(milliseconds: 500),
+                                                                                  ),
+                                                                                },
+                                                                              );
+                                                                            },
+                                                                            text:
+                                                                                '',
+                                                                            icon:
+                                                                                Icon(
+                                                                              Icons.navigate_next_sharp,
+                                                                              size: 15.0,
+                                                                            ),
+                                                                            options:
+                                                                                FFButtonOptions(
+                                                                              height: 40.0,
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(2.0, 2.0, 2.0, 2.0),
+                                                                              iconPadding: EdgeInsetsDirectional.fromSTEB(6.0, 2.0, 2.0, 2.0),
+                                                                              color: Color(0xFF080087),
+                                                                              textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                                                                                    fontFamily: 'Readex Pro',
+                                                                                    color: Color(0xFFF8F8FF),
+                                                                                  ),
+                                                                              elevation: 3.0,
+                                                                              borderSide: BorderSide(
+                                                                                color: Colors.transparent,
+                                                                                width: 1.0,
+                                                                              ),
+                                                                              borderRadius: BorderRadius.circular(2.0),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ),
                                                         ),
                                                       ),

@@ -210,9 +210,11 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                                   categoriesCategoriesRecordList
                                                       .map(
                                                         (record) =>
-                                                            TextSearchItem(
-                                                                record,
-                                                                [record.name!]),
+                                                            TextSearchItem
+                                                                .fromTerms(
+                                                                    record, [
+                                                          record.name!
+                                                        ]),
                                                       )
                                                       .toList(),
                                                 )
