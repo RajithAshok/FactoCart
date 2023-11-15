@@ -35,15 +35,19 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
     _model.yourNameController1 ??=
         TextEditingController(text: currentUserDisplayName);
     _model.yourNameFocusNode1 ??= FocusNode();
+
     _model.cityController ??= TextEditingController(
         text: valueOrDefault(currentUserDocument?.shipadd, ''));
     _model.cityFocusNode ??= FocusNode();
+
     _model.yourNameController2 ??=
         TextEditingController(text: currentUserEmail);
     _model.yourNameFocusNode2 ??= FocusNode();
+
     _model.yourNameController3 ??=
         TextEditingController(text: currentPhoneNumber);
     _model.yourNameFocusNode3 ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 

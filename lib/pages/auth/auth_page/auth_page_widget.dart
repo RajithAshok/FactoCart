@@ -112,12 +112,16 @@ class _AuthPageWidgetState extends State<AuthPageWidget>
     )..addListener(() => setState(() {}));
     _model.emailAddressController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
+
     _model.passwordController ??= TextEditingController();
     _model.passwordFocusNode ??= FocusNode();
+
     _model.emailAddressCreateController ??= TextEditingController();
     _model.emailAddressCreateFocusNode ??= FocusNode();
+
     _model.passwordCreateController ??= TextEditingController();
     _model.passwordCreateFocusNode ??= FocusNode();
+
     _model.confirmPasswordCreateController ??= TextEditingController();
     _model.confirmPasswordCreateFocusNode ??= FocusNode();
 
@@ -828,11 +832,68 @@ class _AuthPageWidgetState extends State<AuthPageWidget>
                                                                     null) {
                                                                   return;
                                                                 }
-
-                                                                context.goNamedAuth(
+                                                                if ((String
+                                                                    var2) {
+                                                                  return var2 ==
+                                                                      "Customer";
+                                                                }(valueOrDefault(
+                                                                    currentUserDocument
+                                                                        ?.userType,
+                                                                    ''))) {
+                                                                  context
+                                                                      .goNamedAuth(
                                                                     'homepage',
                                                                     context
-                                                                        .mounted);
+                                                                        .mounted,
+                                                                    extra: <String,
+                                                                        dynamic>{
+                                                                      kTransitionInfoKey:
+                                                                          TransitionInfo(
+                                                                        hasTransition:
+                                                                            true,
+                                                                        transitionType:
+                                                                            PageTransitionType.scale,
+                                                                        alignment:
+                                                                            Alignment.bottomCenter,
+                                                                        duration:
+                                                                            Duration(milliseconds: 500),
+                                                                      ),
+                                                                    },
+                                                                  );
+                                                                } else if ((String
+                                                                    var1) {
+                                                                  return var1 ==
+                                                                      'Vendor';
+                                                                }(valueOrDefault(
+                                                                    currentUserDocument
+                                                                        ?.userType,
+                                                                    ''))) {
+                                                                  context
+                                                                      .goNamedAuth(
+                                                                    'vendorHomepage',
+                                                                    context
+                                                                        .mounted,
+                                                                    extra: <String,
+                                                                        dynamic>{
+                                                                      kTransitionInfoKey:
+                                                                          TransitionInfo(
+                                                                        hasTransition:
+                                                                            true,
+                                                                        transitionType:
+                                                                            PageTransitionType.scale,
+                                                                        alignment:
+                                                                            Alignment.bottomCenter,
+                                                                        duration:
+                                                                            Duration(milliseconds: 500),
+                                                                      ),
+                                                                    },
+                                                                  );
+                                                                } else {
+                                                                  context.pushNamedAuth(
+                                                                      'defineUserType',
+                                                                      context
+                                                                          .mounted);
+                                                                }
                                                               },
                                                               text:
                                                                   'Continue with Google',
@@ -891,93 +952,91 @@ class _AuthPageWidgetState extends State<AuthPageWidget>
                                                               ),
                                                             ),
                                                           ),
-                                                          isAndroid
-                                                              ? Container()
-                                                              : Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          16.0),
-                                                                  child:
-                                                                      FFButtonWidget(
-                                                                    onPressed:
-                                                                        () async {
-                                                                      GoRouter.of(
-                                                                              context)
-                                                                          .prepareAuthEvent();
-                                                                      final user =
-                                                                          await authManager
-                                                                              .signInWithApple(context);
-                                                                      if (user ==
-                                                                          null) {
-                                                                        return;
-                                                                      }
+                                                          if (responsiveVisibility(
+                                                            context: context,
+                                                            phone: false,
+                                                            tablet: false,
+                                                            tabletLandscape:
+                                                                false,
+                                                            desktop: false,
+                                                          ))
+                                                            isAndroid
+                                                                ? Container()
+                                                                : Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            16.0),
+                                                                    child:
+                                                                        FFButtonWidget(
+                                                                      onPressed:
+                                                                          () async {
+                                                                        GoRouter.of(context)
+                                                                            .prepareAuthEvent();
+                                                                        final user =
+                                                                            await authManager.signInWithApple(context);
+                                                                        if (user ==
+                                                                            null) {
+                                                                          return;
+                                                                        }
 
-                                                                      context.goNamedAuth(
-                                                                          'homepage',
-                                                                          context
-                                                                              .mounted);
-                                                                    },
-                                                                    text:
-                                                                        'Continue with Apple',
-                                                                    icon:
-                                                                        FaIcon(
-                                                                      FontAwesomeIcons
-                                                                          .apple,
-                                                                      size:
-                                                                          20.0,
-                                                                    ),
-                                                                    options:
-                                                                        FFButtonOptions(
-                                                                      width:
-                                                                          230.0,
-                                                                      height:
-                                                                          44.0,
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                      iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                      color: Colors
-                                                                          .white,
-                                                                      textStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Plus Jakarta Sans',
-                                                                            color:
-                                                                                Color(0xFF101213),
-                                                                            fontSize:
-                                                                                14.0,
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                          ),
-                                                                      elevation:
-                                                                          0.0,
-                                                                      borderSide:
-                                                                          BorderSide(
-                                                                        color: Color(
-                                                                            0xFFE0E3E7),
-                                                                        width:
-                                                                            2.0,
+                                                                        context.goNamedAuth(
+                                                                            'homepage',
+                                                                            context.mounted);
+                                                                      },
+                                                                      text:
+                                                                          'Continue with Apple',
+                                                                      icon:
+                                                                          FaIcon(
+                                                                        FontAwesomeIcons
+                                                                            .apple,
+                                                                        size:
+                                                                            20.0,
                                                                       ),
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              40.0),
-                                                                      hoverColor:
-                                                                          Color(
-                                                                              0xFFF1F4F8),
+                                                                      options:
+                                                                          FFButtonOptions(
+                                                                        width:
+                                                                            230.0,
+                                                                        height:
+                                                                            44.0,
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                        iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                        color: Colors
+                                                                            .white,
+                                                                        textStyle: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Plus Jakarta Sans',
+                                                                              color: Color(0xFF101213),
+                                                                              fontSize: 14.0,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                        elevation:
+                                                                            0.0,
+                                                                        borderSide:
+                                                                            BorderSide(
+                                                                          color:
+                                                                              Color(0xFFE0E3E7),
+                                                                          width:
+                                                                              2.0,
+                                                                        ),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(40.0),
+                                                                        hoverColor:
+                                                                            Color(0xFFF1F4F8),
+                                                                      ),
                                                                     ),
                                                                   ),
-                                                                ),
                                                         ],
                                                       ),
                                                     ),
@@ -1637,18 +1696,8 @@ class _AuthPageWidgetState extends State<AuthPageWidget>
                                                             return;
                                                           }
 
-                                                          await UserRecord
-                                                              .collection
-                                                              .doc(user.uid)
-                                                              .update(
-                                                                  createUserRecordData(
-                                                                userType: _model
-                                                                    .radioButtonValue,
-                                                                email: _model
-                                                                    .emailAddressCreateController
-                                                                    .text,
-                                                              ));
-
+                                                          await authManager
+                                                              .sendEmailVerification();
                                                           if ((String var1) {
                                                             return var1 ==
                                                                 "Customer";
@@ -1792,10 +1841,28 @@ class _AuthPageWidgetState extends State<AuthPageWidget>
                                                                 return;
                                                               }
 
-                                                              context.goNamedAuth(
-                                                                  'homepage',
-                                                                  context
-                                                                      .mounted);
+                                                              context
+                                                                  .pushNamedAuth(
+                                                                'defineUserType',
+                                                                context.mounted,
+                                                                extra: <String,
+                                                                    dynamic>{
+                                                                  kTransitionInfoKey:
+                                                                      TransitionInfo(
+                                                                    hasTransition:
+                                                                        true,
+                                                                    transitionType:
+                                                                        PageTransitionType
+                                                                            .scale,
+                                                                    alignment:
+                                                                        Alignment
+                                                                            .bottomCenter,
+                                                                    duration: Duration(
+                                                                        milliseconds:
+                                                                            500),
+                                                                  ),
+                                                                },
+                                                              );
                                                             },
                                                             text:
                                                                 'Continue with Google',
@@ -1854,94 +1921,101 @@ class _AuthPageWidgetState extends State<AuthPageWidget>
                                                             ),
                                                           ),
                                                         ),
-                                                        isAndroid
-                                                            ? Container()
-                                                            : Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            16.0),
-                                                                child:
-                                                                    FFButtonWidget(
-                                                                  onPressed:
-                                                                      () async {
-                                                                    GoRouter.of(
-                                                                            context)
-                                                                        .prepareAuthEvent();
-                                                                    final user =
-                                                                        await authManager
-                                                                            .signInWithApple(context);
-                                                                    if (user ==
-                                                                        null) {
-                                                                      return;
-                                                                    }
+                                                        if (responsiveVisibility(
+                                                          context: context,
+                                                          phone: false,
+                                                          tablet: false,
+                                                          tabletLandscape:
+                                                              false,
+                                                          desktop: false,
+                                                        ))
+                                                          isAndroid
+                                                              ? Container()
+                                                              : Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          16.0),
+                                                                  child:
+                                                                      FFButtonWidget(
+                                                                    onPressed:
+                                                                        () async {
+                                                                      GoRouter.of(
+                                                                              context)
+                                                                          .prepareAuthEvent();
+                                                                      final user =
+                                                                          await authManager
+                                                                              .signInWithApple(context);
+                                                                      if (user ==
+                                                                          null) {
+                                                                        return;
+                                                                      }
 
-                                                                    context.goNamedAuth(
-                                                                        'homepage',
-                                                                        context
-                                                                            .mounted);
-                                                                  },
-                                                                  text:
-                                                                      'Continue with Apple',
-                                                                  icon: FaIcon(
-                                                                    FontAwesomeIcons
-                                                                        .apple,
-                                                                    size: 20.0,
-                                                                  ),
-                                                                  options:
-                                                                      FFButtonOptions(
-                                                                    width:
-                                                                        230.0,
-                                                                    height:
-                                                                        44.0,
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    iconPadding:
-                                                                        EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    color: Colors
-                                                                        .white,
-                                                                    textStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Plus Jakarta Sans',
-                                                                          color:
-                                                                              Color(0xFF101213),
-                                                                          fontSize:
-                                                                              14.0,
-                                                                          fontWeight:
-                                                                              FontWeight.bold,
-                                                                        ),
-                                                                    elevation:
-                                                                        0.0,
-                                                                    borderSide:
-                                                                        BorderSide(
-                                                                      color: Color(
-                                                                          0xFFE0E3E7),
-                                                                      width:
-                                                                          2.0,
+                                                                      context.goNamedAuth(
+                                                                          'homepage',
+                                                                          context
+                                                                              .mounted);
+                                                                    },
+                                                                    text:
+                                                                        'Continue with Apple',
+                                                                    icon:
+                                                                        FaIcon(
+                                                                      FontAwesomeIcons
+                                                                          .apple,
+                                                                      size:
+                                                                          20.0,
                                                                     ),
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            40.0),
-                                                                    hoverColor:
-                                                                        Color(
-                                                                            0xFFF1F4F8),
+                                                                    options:
+                                                                        FFButtonOptions(
+                                                                      width:
+                                                                          230.0,
+                                                                      height:
+                                                                          44.0,
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                      iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                      color: Colors
+                                                                          .white,
+                                                                      textStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Plus Jakarta Sans',
+                                                                            color:
+                                                                                Color(0xFF101213),
+                                                                            fontSize:
+                                                                                14.0,
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                          ),
+                                                                      elevation:
+                                                                          0.0,
+                                                                      borderSide:
+                                                                          BorderSide(
+                                                                        color: Color(
+                                                                            0xFFE0E3E7),
+                                                                        width:
+                                                                            2.0,
+                                                                      ),
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              40.0),
+                                                                      hoverColor:
+                                                                          Color(
+                                                                              0xFFF1F4F8),
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                              ),
                                                       ],
                                                     ),
                                                   ),

@@ -35,16 +35,22 @@ class _CreateProfileVendorWidgetState extends State<CreateProfileVendorWidget> {
 
     _model.shopNameController ??= TextEditingController();
     _model.shopNameFocusNode ??= FocusNode();
+
     _model.phoneNumberController ??= TextEditingController();
     _model.phoneNumberFocusNode ??= FocusNode();
+
     _model.shopAddressController ??= TextEditingController();
     _model.shopAddressFocusNode ??= FocusNode();
+
     _model.gstInNumberController ??= TextEditingController();
     _model.gstInNumberFocusNode ??= FocusNode();
+
     _model.panCardNumberController ??= TextEditingController();
     _model.panCardNumberFocusNode ??= FocusNode();
+
     _model.bankAccNumberController ??= TextEditingController();
     _model.bankAccNumberFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -584,6 +590,7 @@ class _CreateProfileVendorWidgetState extends State<CreateProfileVendorWidget> {
                             panCard: _model.panCardNumberController.text,
                             bankAcc: int.tryParse(
                                 _model.bankAccNumberController.text),
+                            userType: 'Vendor',
                           ));
 
                           context.pushNamed(

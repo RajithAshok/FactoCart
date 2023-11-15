@@ -1,8 +1,8 @@
 import '/backend/backend.dart';
-import '/components/add_bottom_sheet/add_bottom_sheet_widget.dart';
+import '/components/navbars/add_bottom_sheet/add_bottom_sheet_widget.dart';
 import '/components/navbars/bottom_navbar_component/bottom_navbar_component_widget.dart';
-import '/components/navbars/top_nav_customer_component/top_nav_customer_component_widget.dart';
 import '/components/rating_bar/rating_bar_widget.dart';
+import '/components/top_nav_customer_component/top_nav_customer_component_widget.dart';
 import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -38,12 +38,20 @@ class HomepageModel extends FlutterFlowModel<HomepageWidget> {
   String? Function(BuildContext, String?)? inputsearchControllerValidator;
   List<ProductRecord> simpleSearchResults = [];
   // State field(s) for PageView widget.
-  PageController? pageViewController;
+  PageController? pageViewController1;
 
-  int get pageViewCurrentIndex => pageViewController != null &&
-          pageViewController!.hasClients &&
-          pageViewController!.page != null
-      ? pageViewController!.page!.round()
+  int get pageViewCurrentIndex1 => pageViewController1 != null &&
+          pageViewController1!.hasClients &&
+          pageViewController1!.page != null
+      ? pageViewController1!.page!.round()
+      : 0;
+  // State field(s) for PageView widget.
+  PageController? pageViewController2;
+
+  int get pageViewCurrentIndex2 => pageViewController2 != null &&
+          pageViewController2!.hasClients &&
+          pageViewController2!.page != null
+      ? pageViewController2!.page!.round()
       : 0;
   // Model for BottomNavbarComponent component.
   late BottomNavbarComponentModel bottomNavbarComponentModel;

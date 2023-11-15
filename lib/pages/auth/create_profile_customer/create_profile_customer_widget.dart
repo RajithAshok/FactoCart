@@ -36,10 +36,13 @@ class _CreateProfileCustomerWidgetState
 
     _model.userNameController ??= TextEditingController();
     _model.userNameFocusNode ??= FocusNode();
+
     _model.phoneNumberController ??= TextEditingController();
     _model.phoneNumberFocusNode ??= FocusNode();
+
     _model.shippingAddressController ??= TextEditingController();
     _model.shippingAddressFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -422,6 +425,7 @@ class _CreateProfileCustomerWidgetState
                             photoUrl: _model.uploadedFileUrl,
                             phoneNumber: _model.phoneNumberController.text,
                             shipadd: _model.shippingAddressController.text,
+                            userType: 'Customer',
                           ));
 
                           context.pushNamed(

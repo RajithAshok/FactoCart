@@ -45,6 +45,7 @@ class _EditProductPageWidgetState extends State<EditProductPageWidget> {
     _model.priceTextFieldFocusNode ??= FocusNode();
 
     _model.discPriceTextFieldFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 

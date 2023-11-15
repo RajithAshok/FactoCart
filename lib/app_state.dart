@@ -63,6 +63,24 @@ class FFAppState extends ChangeNotifier {
               .toList() ??
           _postCheck;
     });
+    await _safeInitAsync(() async {
+      _postCheck2 = (await secureStorage.getStringList('ff_postCheck2'))
+              ?.map((x) {
+                try {
+                  return ShoppingCart2Struct.fromSerializableMap(jsonDecode(x));
+                } catch (e) {
+                  print("Can't decode persisted data type. Error: $e.");
+                  return null;
+                }
+              })
+              .withoutNulls
+              .toList() ??
+          _postCheck2;
+    });
+    await _safeInitAsync(() async {
+      _checkoutBool =
+          await secureStorage.getBool('ff_checkoutBool') ?? _checkoutBool;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -240,6 +258,68 @@ class FFAppState extends ChangeNotifier {
     _postCheck.insert(_index, _value);
     secureStorage.setStringList(
         'ff_postCheck', _postCheck.map((x) => x.serialize()).toList());
+  }
+
+  List<ShoppingCart2Struct> _postCheck2 = [];
+  List<ShoppingCart2Struct> get postCheck2 => _postCheck2;
+  set postCheck2(List<ShoppingCart2Struct> _value) {
+    _postCheck2 = _value;
+    secureStorage.setStringList(
+        'ff_postCheck2', _value.map((x) => x.serialize()).toList());
+  }
+
+  void deletePostCheck2() {
+    secureStorage.delete(key: 'ff_postCheck2');
+  }
+
+  void addToPostCheck2(ShoppingCart2Struct _value) {
+    _postCheck2.add(_value);
+    secureStorage.setStringList(
+        'ff_postCheck2', _postCheck2.map((x) => x.serialize()).toList());
+  }
+
+  void removeFromPostCheck2(ShoppingCart2Struct _value) {
+    _postCheck2.remove(_value);
+    secureStorage.setStringList(
+        'ff_postCheck2', _postCheck2.map((x) => x.serialize()).toList());
+  }
+
+  void removeAtIndexFromPostCheck2(int _index) {
+    _postCheck2.removeAt(_index);
+    secureStorage.setStringList(
+        'ff_postCheck2', _postCheck2.map((x) => x.serialize()).toList());
+  }
+
+  void updatePostCheck2AtIndex(
+    int _index,
+    ShoppingCart2Struct Function(ShoppingCart2Struct) updateFn,
+  ) {
+    _postCheck2[_index] = updateFn(_postCheck2[_index]);
+    secureStorage.setStringList(
+        'ff_postCheck2', _postCheck2.map((x) => x.serialize()).toList());
+  }
+
+  void insertAtIndexInPostCheck2(int _index, ShoppingCart2Struct _value) {
+    _postCheck2.insert(_index, _value);
+    secureStorage.setStringList(
+        'ff_postCheck2', _postCheck2.map((x) => x.serialize()).toList());
+  }
+
+  bool _faqBool = false;
+  bool get faqBool => _faqBool;
+  set faqBool(bool _value) {
+    _faqBool = _value;
+  }
+
+  bool _checkoutBool = false;
+  bool get checkoutBool => _checkoutBool;
+  set checkoutBool(bool _value) {
+    _checkoutBool = _value;
+    secureStorage.setBool('ff_checkoutBool', _value);
+  }
+
+  void deleteCheckoutBool() {
+    secureStorage.delete(key: 'ff_checkoutBool');
   }
 }
 

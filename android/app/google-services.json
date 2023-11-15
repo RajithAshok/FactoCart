@@ -7,48 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:236178661902:android:6d72594d057fa9c1f4d25f",
-        "android_client_info": {
-          "package_name": "com.mycompany.aerospace"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "236178661902-jic66qa6frtn0oq9fstd0v79kc82pj13.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAgLQJDT4SNXOt8-80LyJd2RvNC7k7UWh8"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "236178661902-jic66qa6frtn0oq9fstd0v79kc82pj13.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "236178661902-2t1g254jpn1h1k4upavhsc9ls70jdarm.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.mycompany.factocart"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:236178661902:android:94f3b2320bebca28f4d25f",
         "android_client_info": {
           "package_name": "com.mycompany.factocart"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "236178661902-1i1pa37o66ed43ov5ptpeot7gb8pvigo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.factocart",
+            "certificate_hash": "12268ceb800f310c30d8857f2d63b3bf5cd09d0d"
+          }
+        },
         {
           "client_id": "236178661902-jqhmnqf2f3jf2v65docdcj5mo7rjkqsb.apps.googleusercontent.com",
           "client_type": 1,

@@ -16,43 +16,55 @@ class OrdersRecord extends FirestoreRecord {
     _initializeFields();
   }
 
-  // "amount" field.
-  double? _amount;
-  double get amount => _amount ?? 0.0;
-  bool hasAmount() => _amount != null;
+  // "proref" field.
+  DocumentReference? _proref;
+  DocumentReference? get proref => _proref;
+  bool hasProref() => _proref != null;
 
-  // "status" field.
-  String? _status;
-  String get status => _status ?? '';
-  bool hasStatus() => _status != null;
+  // "userref" field.
+  DocumentReference? _userref;
+  DocumentReference? get userref => _userref;
+  bool hasUserref() => _userref != null;
+
+  // "quantity" field.
+  int? _quantity;
+  int get quantity => _quantity ?? 0;
+  bool hasQuantity() => _quantity != null;
+
+  // "totalPrice" field.
+  double? _totalPrice;
+  double get totalPrice => _totalPrice ?? 0.0;
+  bool hasTotalPrice() => _totalPrice != null;
+
+  // "vendorsname" field.
+  String? _vendorsname;
+  String get vendorsname => _vendorsname ?? '';
+  bool hasVendorsname() => _vendorsname != null;
 
   // "created_at" field.
   DateTime? _createdAt;
   DateTime? get createdAt => _createdAt;
   bool hasCreatedAt() => _createdAt != null;
 
-  // "vendor_name" field.
-  String? _vendorName;
-  String get vendorName => _vendorName ?? '';
-  bool hasVendorName() => _vendorName != null;
+  // "userAddress" field.
+  String? _userAddress;
+  String get userAddress => _userAddress ?? '';
+  bool hasUserAddress() => _userAddress != null;
 
-  // "user" field.
-  DocumentReference? _user;
-  DocumentReference? get user => _user;
-  bool hasUser() => _user != null;
-
-  // "address" field.
-  String? _address;
-  String get address => _address ?? '';
-  bool hasAddress() => _address != null;
+  // "status" field.
+  String? _status;
+  String get status => _status ?? '';
+  bool hasStatus() => _status != null;
 
   void _initializeFields() {
-    _amount = castToType<double>(snapshotData['amount']);
-    _status = snapshotData['status'] as String?;
+    _proref = snapshotData['proref'] as DocumentReference?;
+    _userref = snapshotData['userref'] as DocumentReference?;
+    _quantity = castToType<int>(snapshotData['quantity']);
+    _totalPrice = castToType<double>(snapshotData['totalPrice']);
+    _vendorsname = snapshotData['vendorsname'] as String?;
     _createdAt = snapshotData['created_at'] as DateTime?;
-    _vendorName = snapshotData['vendor_name'] as String?;
-    _user = snapshotData['user'] as DocumentReference?;
-    _address = snapshotData['address'] as String?;
+    _userAddress = snapshotData['userAddress'] as String?;
+    _status = snapshotData['status'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -89,21 +101,25 @@ class OrdersRecord extends FirestoreRecord {
 }
 
 Map<String, dynamic> createOrdersRecordData({
-  double? amount,
-  String? status,
+  DocumentReference? proref,
+  DocumentReference? userref,
+  int? quantity,
+  double? totalPrice,
+  String? vendorsname,
   DateTime? createdAt,
-  String? vendorName,
-  DocumentReference? user,
-  String? address,
+  String? userAddress,
+  String? status,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
-      'amount': amount,
-      'status': status,
+      'proref': proref,
+      'userref': userref,
+      'quantity': quantity,
+      'totalPrice': totalPrice,
+      'vendorsname': vendorsname,
       'created_at': createdAt,
-      'vendor_name': vendorName,
-      'user': user,
-      'address': address,
+      'userAddress': userAddress,
+      'status': status,
     }.withoutNulls,
   );
 
@@ -115,17 +131,27 @@ class OrdersRecordDocumentEquality implements Equality<OrdersRecord> {
 
   @override
   bool equals(OrdersRecord? e1, OrdersRecord? e2) {
-    return e1?.amount == e2?.amount &&
-        e1?.status == e2?.status &&
+    return e1?.proref == e2?.proref &&
+        e1?.userref == e2?.userref &&
+        e1?.quantity == e2?.quantity &&
+        e1?.totalPrice == e2?.totalPrice &&
+        e1?.vendorsname == e2?.vendorsname &&
         e1?.createdAt == e2?.createdAt &&
-        e1?.vendorName == e2?.vendorName &&
-        e1?.user == e2?.user &&
-        e1?.address == e2?.address;
+        e1?.userAddress == e2?.userAddress &&
+        e1?.status == e2?.status;
   }
 
   @override
-  int hash(OrdersRecord? e) => const ListEquality().hash(
-      [e?.amount, e?.status, e?.createdAt, e?.vendorName, e?.user, e?.address]);
+  int hash(OrdersRecord? e) => const ListEquality().hash([
+        e?.proref,
+        e?.userref,
+        e?.quantity,
+        e?.totalPrice,
+        e?.vendorsname,
+        e?.createdAt,
+        e?.userAddress,
+        e?.status
+      ]);
 
   @override
   bool isValidKey(Object? o) => o is OrdersRecord;

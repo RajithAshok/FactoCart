@@ -1,9 +1,8 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/add_bottom_sheet/add_bottom_sheet_widget.dart';
+import '/components/navbars/add_bottom_sheet/add_bottom_sheet_widget.dart';
 import '/components/navbars/bottom_navbar_component/bottom_navbar_component_widget.dart';
-import '/components/navbars/top_nav_customer_component/top_nav_customer_component_widget.dart';
 import '/components/rating_bar/rating_bar_widget.dart';
+import '/components/top_nav_customer_component/top_nav_customer_component_widget.dart';
 import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -259,6 +258,7 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                 ) {
                                                   _model.inputsearchFocusNode =
                                                       focusNode;
+
                                                   _model.inputsearchController =
                                                       textEditingController;
                                                   return TextFormField(
@@ -1172,10 +1172,10 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                           padding:
                                                               EdgeInsetsDirectional
                                                                   .fromSTEB(
-                                                                      1.0,
-                                                                      1.0,
-                                                                      1.0,
-                                                                      1.0),
+                                                                      16.0,
+                                                                      16.0,
+                                                                      16.0,
+                                                                      16.0),
                                                           child: Column(
                                                             mainAxisSize:
                                                                 MainAxisSize
@@ -1353,49 +1353,91 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                                         ),
                                                                       ),
                                                                     ),
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          2.0,
-                                                                          0.0,
-                                                                          2.0),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.start,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.end,
-                                                                        children: [
-                                                                          Text(
-                                                                            searchrestabItem.price.toString(),
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Readex Pro',
-                                                                                  fontWeight: FontWeight.w600,
-                                                                                ),
-                                                                          ),
-                                                                          Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                2.0,
-                                                                                0.0,
-                                                                                0.0,
-                                                                                3.0),
-                                                                            child:
-                                                                                Text(
-                                                                              'INR',
+                                                                    if (searchrestabItem
+                                                                            .offer ==
+                                                                        false)
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            2.0,
+                                                                            0.0,
+                                                                            2.0),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.start,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.end,
+                                                                          children: [
+                                                                            Text(
+                                                                              searchrestabItem.price.toString(),
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     fontFamily: 'Readex Pro',
-                                                                                    fontSize: 9.0,
+                                                                                    fontWeight: FontWeight.w600,
                                                                                   ),
                                                                             ),
-                                                                          ),
-                                                                          if (currentUserReference?.id ==
-                                                                              'true')
+                                                                            Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(2.0, 0.0, 0.0, 3.0),
+                                                                              child: Text(
+                                                                                'INR',
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: 'Readex Pro',
+                                                                                      fontSize: 9.0,
+                                                                                    ),
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    if (searchrestabItem
+                                                                            .offer ==
+                                                                        true)
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            2.0,
+                                                                            0.0,
+                                                                            2.0),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.start,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.end,
+                                                                          children: [
+                                                                            Text(
+                                                                              formatNumber(
+                                                                                searchrestabItem.discPrice,
+                                                                                formatType: FormatType.decimal,
+                                                                                decimalType: DecimalType.automatic,
+                                                                              ),
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: 'Readex Pro',
+                                                                                    fontWeight: FontWeight.w600,
+                                                                                  ),
+                                                                            ),
+                                                                            Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(2.0, 0.0, 0.0, 3.0),
+                                                                              child: Text(
+                                                                                'INR',
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: 'Readex Pro',
+                                                                                      fontSize: 9.0,
+                                                                                    ),
+                                                                              ),
+                                                                            ),
                                                                             Padding(
                                                                               padding: EdgeInsetsDirectional.fromSTEB(6.0, 0.0, 0.0, 0.0),
                                                                               child: Text(
-                                                                                '35,000',
+                                                                                formatNumber(
+                                                                                  searchrestabItem.price,
+                                                                                  formatType: FormatType.decimal,
+                                                                                  decimalType: DecimalType.automatic,
+                                                                                ),
                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                       fontFamily: 'Readex Pro',
                                                                                       color: Color(0xFFFF3535),
@@ -1403,9 +1445,9 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                                                     ),
                                                                               ),
                                                                             ),
-                                                                        ],
+                                                                          ],
+                                                                        ),
                                                                       ),
-                                                                    ),
                                                                     RatingBarWidget(
                                                                       key: Key(
                                                                           'Keyvyd_${searchrestabIndex}_of_${searchrestab.length}'),
@@ -1598,10 +1640,10 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                             padding:
                                                                 EdgeInsetsDirectional
                                                                     .fromSTEB(
-                                                                        1.0,
-                                                                        1.0,
-                                                                        1.0,
-                                                                        1.0),
+                                                                        16.0,
+                                                                        16.0,
+                                                                        16.0,
+                                                                        16.0),
                                                             child: Column(
                                                               mainAxisSize:
                                                                   MainAxisSize
@@ -1760,6 +1802,48 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                                           ),
                                                                         ),
                                                                       ),
+                                                                      if (searchresdesItem
+                                                                              .offer ==
+                                                                          false)
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              0.0,
+                                                                              2.0,
+                                                                              0.0,
+                                                                              2.0),
+                                                                          child:
+                                                                              Row(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.start,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.end,
+                                                                            children: [
+                                                                              Text(
+                                                                                formatNumber(
+                                                                                  searchresdesItem.price,
+                                                                                  formatType: FormatType.decimal,
+                                                                                  decimalType: DecimalType.automatic,
+                                                                                ),
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: 'Readex Pro',
+                                                                                      fontWeight: FontWeight.w600,
+                                                                                    ),
+                                                                              ),
+                                                                              Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(2.0, 0.0, 0.0, 3.0),
+                                                                                child: Text(
+                                                                                  'INR',
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                        fontFamily: 'Readex Pro',
+                                                                                        fontSize: 9.0,
+                                                                                      ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
                                                                       Padding(
                                                                         padding: EdgeInsetsDirectional.fromSTEB(
                                                                             0.0,
@@ -1776,7 +1860,11 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                                               CrossAxisAlignment.end,
                                                                           children: [
                                                                             Text(
-                                                                              searchresdesItem.price.toString(),
+                                                                              formatNumber(
+                                                                                searchresdesItem.discPrice,
+                                                                                formatType: FormatType.decimal,
+                                                                                decimalType: DecimalType.automatic,
+                                                                              ),
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     fontFamily: 'Readex Pro',
                                                                                     fontWeight: FontWeight.w600,
@@ -1792,19 +1880,21 @@ class _OfferspageWidgetState extends State<OfferspageWidget> {
                                                                                     ),
                                                                               ),
                                                                             ),
-                                                                            if (currentUserReference?.id ==
-                                                                                'true')
-                                                                              Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(6.0, 0.0, 0.0, 0.0),
-                                                                                child: Text(
-                                                                                  '35,000',
-                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                        fontFamily: 'Readex Pro',
-                                                                                        color: Color(0xFFFF3535),
-                                                                                        decoration: TextDecoration.lineThrough,
-                                                                                      ),
+                                                                            Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(6.0, 0.0, 0.0, 0.0),
+                                                                              child: Text(
+                                                                                formatNumber(
+                                                                                  searchresdesItem.price,
+                                                                                  formatType: FormatType.decimal,
+                                                                                  decimalType: DecimalType.automatic,
                                                                                 ),
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: 'Readex Pro',
+                                                                                      color: Color(0xFFFF3535),
+                                                                                      decoration: TextDecoration.lineThrough,
+                                                                                    ),
                                                                               ),
+                                                                            ),
                                                                           ],
                                                                         ),
                                                                       ),

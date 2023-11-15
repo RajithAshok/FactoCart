@@ -210,6 +210,35 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'offerspage',
           path: '/offerspage',
           builder: (context, params) => OfferspageWidget(),
+        ),
+        FFRoute(
+          name: 'checkoutCopy',
+          path: '/checkoutCopy',
+          builder: (context, params) => CheckoutCopyWidget(
+            vendorName: params.getParam('vendorName', ParamType.String),
+            proref: params.getParam<DocumentReference>(
+                'proref', ParamType.DocumentReference, true, ['product']),
+          ),
+        ),
+        FFRoute(
+          name: 'orderhistoryCopy',
+          path: '/orderhistoryCopy',
+          builder: (context, params) => OrderhistoryCopyWidget(),
+        ),
+        FFRoute(
+          name: 'faqPage',
+          path: '/faqPage',
+          builder: (context, params) => FaqPageWidget(),
+        ),
+        FFRoute(
+          name: 'testPage',
+          path: '/testPage',
+          builder: (context, params) => TestPageWidget(),
+        ),
+        FFRoute(
+          name: 'defineUserType',
+          path: '/defineUserType',
+          builder: (context, params) => DefineUserTypeWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -389,13 +418,15 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Container(
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                  child: Image.asset(
-                    'assets/images/FactoCart-LogoTransparentExpanded.png',
-                    fit: BoxFit.contain,
-                  ),
-                )
+              ? isWeb
+                  ? Container()
+                  : Container(
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      child: Image.asset(
+                        'assets/images/FactoCart-LogoTransparentExpanded.png',
+                        fit: BoxFit.contain,
+                      ),
+                    )
               : page;
 
           final transitionInfo = state.transitionInfo;

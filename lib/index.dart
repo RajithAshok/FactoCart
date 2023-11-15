@@ -37,3 +37,11 @@ export '/pages/vendor_pages/order_history_details/order_history_details_widget.d
     show OrderHistoryDetailsWidget;
 export '/pages/user_pages/offerspage/offerspage_widget.dart'
     show OfferspageWidget;
+export '/pages/user_pages/checkout_copy/checkout_copy_widget.dart'
+    show CheckoutCopyWidget;
+export '/pages/vendor_pages/orderhistory_copy/orderhistory_copy_widget.dart'
+    show OrderhistoryCopyWidget;
+export '/pages/user_pages/faq_page/faq_page_widget.dart' show FaqPageWidget;
+export '/test_page/test_page_widget.dart' show TestPageWidget;
+export '/pages/auth/define_user_type/define_user_type_widget.dart'
+    show DefineUserTypeWidget;
