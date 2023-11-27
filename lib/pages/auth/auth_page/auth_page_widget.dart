@@ -952,6 +952,96 @@ class _AuthPageWidgetState extends State<AuthPageWidget>
                                                               ),
                                                             ),
                                                           ),
+                                                          Align(
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    0.00, 0.00),
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          16.0),
+                                                              child:
+                                                                  FFButtonWidget(
+                                                                onPressed:
+                                                                    () async {
+                                                                  context
+                                                                      .goNamed(
+                                                                    'homepage',
+                                                                    extra: <String,
+                                                                        dynamic>{
+                                                                      kTransitionInfoKey:
+                                                                          TransitionInfo(
+                                                                        hasTransition:
+                                                                            true,
+                                                                        transitionType:
+                                                                            PageTransitionType.scale,
+                                                                        alignment:
+                                                                            Alignment.bottomCenter,
+                                                                        duration:
+                                                                            Duration(milliseconds: 500),
+                                                                      ),
+                                                                    },
+                                                                  );
+                                                                },
+                                                                text:
+                                                                    'Login as Guest',
+                                                                icon: Icon(
+                                                                  Icons.person,
+                                                                  size: 20.0,
+                                                                ),
+                                                                options:
+                                                                    FFButtonOptions(
+                                                                  width: 230.0,
+                                                                  height: 44.0,
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  iconPadding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  color: Colors
+                                                                      .white,
+                                                                  textStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Plus Jakarta Sans',
+                                                                        color: Color(
+                                                                            0xFF101213),
+                                                                        fontSize:
+                                                                            14.0,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                      ),
+                                                                  elevation:
+                                                                      0.0,
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                    color: Color(
+                                                                        0xFFE0E3E7),
+                                                                    width: 2.0,
+                                                                  ),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              40.0),
+                                                                  hoverColor: Color(
+                                                                      0xFFF1F4F8),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
                                                           if (responsiveVisibility(
                                                             context: context,
                                                             phone: false,

@@ -1,8 +1,10 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/navbars/add_bottom_sheet/add_bottom_sheet_widget.dart';
 import '/components/navbars/bottom_navbar_component/bottom_navbar_component_widget.dart';
+import '/components/navbars/top_nav_customer_component/top_nav_customer_component_widget.dart';
+import '/components/navbars/top_nav_mobile/top_nav_mobile_widget.dart';
 import '/components/rating_bar/rating_bar_widget.dart';
-import '/components/top_nav_customer_component/top_nav_customer_component_widget.dart';
 import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -166,6 +168,72 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
+                                            if (currentUserReference?.id ==
+                                                    null ||
+                                                currentUserReference?.id == '')
+                                              InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  context.goNamed(
+                                                    'AuthPage',
+                                                    extra: <String, dynamic>{
+                                                      kTransitionInfoKey:
+                                                          TransitionInfo(
+                                                        hasTransition: true,
+                                                        transitionType:
+                                                            PageTransitionType
+                                                                .scale,
+                                                        alignment: Alignment
+                                                            .bottomCenter,
+                                                        duration: Duration(
+                                                            milliseconds: 500),
+                                                      ),
+                                                    },
+                                                  );
+                                                },
+                                                child: Container(
+                                                  width: 120.0,
+                                                  height: 40.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryBackground,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                    shape: BoxShape.rectangle,
+                                                    border: Border.all(
+                                                      color: Color(0xFF010162),
+                                                      width: 0.5,
+                                                    ),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(8.0, 8.0,
+                                                                8.0, 8.0),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          'Login/Sign Up',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .labelSmall,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
                                           ],
                                         ),
                                       ),
@@ -1088,32 +1156,66 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                                       FFButtonWidget(
                                                                         onPressed:
                                                                             () async {
-                                                                          await showModalBottomSheet(
-                                                                            isScrollControlled:
-                                                                                true,
-                                                                            backgroundColor:
-                                                                                Colors.transparent,
-                                                                            enableDrag:
-                                                                                false,
-                                                                            context:
-                                                                                context,
-                                                                            builder:
-                                                                                (context) {
-                                                                              return GestureDetector(
-                                                                                onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
-                                                                                child: Padding(
-                                                                                  padding: MediaQuery.viewInsetsOf(context),
-                                                                                  child: AddBottomSheetWidget(
-                                                                                    proref: searchresItem.reference,
-                                                                                    price: searchresItem.offer == true ? searchresItem.discPrice : searchresItem.price,
-                                                                                    name: searchresItem.name,
-                                                                                    vendorsname: searchresItem.vendorName,
+                                                                          if (currentUserReference?.id != null &&
+                                                                              currentUserReference?.id != '') {
+                                                                            await showModalBottomSheet(
+                                                                              isScrollControlled: true,
+                                                                              backgroundColor: Colors.transparent,
+                                                                              enableDrag: false,
+                                                                              context: context,
+                                                                              builder: (context) {
+                                                                                return GestureDetector(
+                                                                                  onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
+                                                                                  child: Padding(
+                                                                                    padding: MediaQuery.viewInsetsOf(context),
+                                                                                    child: AddBottomSheetWidget(
+                                                                                      proref: searchresItem.reference,
+                                                                                      price: searchresItem.offer == true ? searchresItem.discPrice : searchresItem.price,
+                                                                                      name: searchresItem.name,
+                                                                                      vendorsname: searchresItem.vendorName,
+                                                                                    ),
                                                                                   ),
-                                                                                ),
+                                                                                );
+                                                                              },
+                                                                            ).then((value) =>
+                                                                                safeSetState(() {}));
+                                                                          } else {
+                                                                            var confirmDialogResponse = await showDialog<bool>(
+                                                                                  context: context,
+                                                                                  builder: (alertDialogContext) {
+                                                                                    return AlertDialog(
+                                                                                      title: Text('Please login'),
+                                                                                      content: Text('For adding an item to cart, kindly sign up to an account.'),
+                                                                                      actions: [
+                                                                                        TextButton(
+                                                                                          onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                          child: Text('Cancel'),
+                                                                                        ),
+                                                                                        TextButton(
+                                                                                          onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                          child: Text('Login/ Sign Up'),
+                                                                                        ),
+                                                                                      ],
+                                                                                    );
+                                                                                  },
+                                                                                ) ??
+                                                                                false;
+                                                                            if (confirmDialogResponse) {
+                                                                              context.goNamed(
+                                                                                'AuthPage',
+                                                                                extra: <String, dynamic>{
+                                                                                  kTransitionInfoKey: TransitionInfo(
+                                                                                    hasTransition: true,
+                                                                                    transitionType: PageTransitionType.scale,
+                                                                                    alignment: Alignment.bottomCenter,
+                                                                                    duration: Duration(milliseconds: 500),
+                                                                                  ),
+                                                                                },
                                                                               );
-                                                                            },
-                                                                          ).then((value) =>
-                                                                              safeSetState(() {}));
+                                                                            } else {
+                                                                              return;
+                                                                            }
+                                                                          }
                                                                         },
                                                                         text:
                                                                             '',
@@ -2302,6 +2404,18 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                           ),
                         ),
                       ),
+                    Align(
+                      alignment: AlignmentDirectional(0.00, -1.00),
+                      child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                        child: wrapWithModel(
+                          model: _model.topNavMobileModel,
+                          updateCallback: () => setState(() {}),
+                          child: TopNavMobileWidget(),
+                        ),
+                      ),
+                    ),
                     Align(
                       alignment: AlignmentDirectional(0.00, -1.00),
                       child: wrapWithModel(

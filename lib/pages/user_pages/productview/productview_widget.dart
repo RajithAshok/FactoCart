@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/navbars/add_bottom_sheet/add_bottom_sheet_widget.dart';
 import '/components/navbars/bottom_navbar_component/bottom_navbar_component_widget.dart';
@@ -475,21 +476,20 @@ class _ProductviewWidgetState extends State<ProductviewWidget>
                                     alignment: AlignmentDirectional(0.00, 0.00),
                                     child: FFButtonWidget(
                                       onPressed: () async {
-                                        await showModalBottomSheet(
-                                          isScrollControlled: true,
-                                          backgroundColor: Color(0x4DECECEC),
-                                          useSafeArea: true,
-                                          context: context,
-                                          builder: (context) {
-                                            return Padding(
-                                              padding: MediaQuery.viewInsetsOf(
-                                                  context),
-                                              child: Container(
-                                                height: 300.0,
+                                        if (currentUserReference?.id != null &&
+                                            currentUserReference?.id != '') {
+                                          await showModalBottomSheet(
+                                            isScrollControlled: true,
+                                            backgroundColor: Colors.transparent,
+                                            enableDrag: false,
+                                            context: context,
+                                            builder: (context) {
+                                              return Padding(
+                                                padding:
+                                                    MediaQuery.viewInsetsOf(
+                                                        context),
                                                 child: AddBottomSheetWidget(
-                                                  proref:
-                                                      productviewProductRecord
-                                                          .reference,
+                                                  proref: widget.proref,
                                                   price: productviewProductRecord
                                                               .offer ==
                                                           true
@@ -503,10 +503,63 @@ class _ProductviewWidgetState extends State<ProductviewWidget>
                                                       productviewProductRecord
                                                           .vendorName,
                                                 ),
-                                              ),
+                                              );
+                                            },
+                                          ).then(
+                                              (value) => safeSetState(() {}));
+                                        } else {
+                                          var confirmDialogResponse =
+                                              await showDialog<bool>(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title: Text(
+                                                            'Please login'),
+                                                        content: Text(
+                                                            'For adding an item to cart, kindly sign up to an account.'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext,
+                                                                    false),
+                                                            child:
+                                                                Text('Cancel'),
+                                                          ),
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext,
+                                                                    true),
+                                                            child:
+                                                                Text('Confirm'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  ) ??
+                                                  false;
+                                          if (confirmDialogResponse) {
+                                            context.goNamed(
+                                              'AuthPage',
+                                              extra: <String, dynamic>{
+                                                kTransitionInfoKey:
+                                                    TransitionInfo(
+                                                  hasTransition: true,
+                                                  transitionType:
+                                                      PageTransitionType.scale,
+                                                  alignment:
+                                                      Alignment.bottomCenter,
+                                                  duration: Duration(
+                                                      milliseconds: 500),
+                                                ),
+                                              },
                                             );
-                                          },
-                                        ).then((value) => safeSetState(() {}));
+                                          } else {
+                                            return;
+                                          }
+                                        }
                                       },
                                       text: 'Add to Cart',
                                       icon: Icon(

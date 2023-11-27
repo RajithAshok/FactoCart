@@ -1,6 +1,7 @@
 import '/backend/backend.dart';
 import '/components/navbars/bottom_navbar_component/bottom_navbar_component_widget.dart';
-import '/components/top_nav_customer_component/top_nav_customer_component_widget.dart';
+import '/components/navbars/top_nav_customer_component/top_nav_customer_component_widget.dart';
+import '/components/navbars/top_nav_mobile/top_nav_mobile_widget.dart';
 import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -31,6 +32,8 @@ class CategoriesModel extends FlutterFlowModel<CategoriesWidget> {
   List<CategoriesRecord> simpleSearchResults = [];
   // Model for BottomNavbarComponent component.
   late BottomNavbarComponentModel bottomNavbarComponentModel;
+  // Model for topNav_mobile component.
+  late TopNavMobileModel topNavMobileModel;
   // Model for TopNav_customerComponent component.
   late TopNavCustomerComponentModel topNavCustomerComponentModel;
 
@@ -39,6 +42,7 @@ class CategoriesModel extends FlutterFlowModel<CategoriesWidget> {
   void initState(BuildContext context) {
     bottomNavbarComponentModel =
         createModel(context, () => BottomNavbarComponentModel());
+    topNavMobileModel = createModel(context, () => TopNavMobileModel());
     topNavCustomerComponentModel =
         createModel(context, () => TopNavCustomerComponentModel());
   }
@@ -48,6 +52,7 @@ class CategoriesModel extends FlutterFlowModel<CategoriesWidget> {
     inputsearchFocusNode?.dispose();
 
     bottomNavbarComponentModel.dispose();
+    topNavMobileModel.dispose();
     topNavCustomerComponentModel.dispose();
   }
 

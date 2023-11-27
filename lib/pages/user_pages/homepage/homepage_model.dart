@@ -1,8 +1,10 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/navbars/add_bottom_sheet/add_bottom_sheet_widget.dart';
 import '/components/navbars/bottom_navbar_component/bottom_navbar_component_widget.dart';
+import '/components/navbars/top_nav_customer_component/top_nav_customer_component_widget.dart';
+import '/components/navbars/top_nav_mobile/top_nav_mobile_widget.dart';
 import '/components/rating_bar/rating_bar_widget.dart';
-import '/components/top_nav_customer_component/top_nav_customer_component_widget.dart';
 import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -55,6 +57,8 @@ class HomepageModel extends FlutterFlowModel<HomepageWidget> {
       : 0;
   // Model for BottomNavbarComponent component.
   late BottomNavbarComponentModel bottomNavbarComponentModel;
+  // Model for topNav_mobile component.
+  late TopNavMobileModel topNavMobileModel;
   // Model for TopNav_customerComponent component.
   late TopNavCustomerComponentModel topNavCustomerComponentModel;
 
@@ -63,6 +67,7 @@ class HomepageModel extends FlutterFlowModel<HomepageWidget> {
   void initState(BuildContext context) {
     bottomNavbarComponentModel =
         createModel(context, () => BottomNavbarComponentModel());
+    topNavMobileModel = createModel(context, () => TopNavMobileModel());
     topNavCustomerComponentModel =
         createModel(context, () => TopNavCustomerComponentModel());
   }
@@ -72,6 +77,7 @@ class HomepageModel extends FlutterFlowModel<HomepageWidget> {
     inputsearchFocusNode?.dispose();
 
     bottomNavbarComponentModel.dispose();
+    topNavMobileModel.dispose();
     topNavCustomerComponentModel.dispose();
   }
 

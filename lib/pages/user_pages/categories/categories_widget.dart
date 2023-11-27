@@ -1,6 +1,7 @@
 import '/backend/backend.dart';
 import '/components/navbars/bottom_navbar_component/bottom_navbar_component_widget.dart';
-import '/components/top_nav_customer_component/top_nav_customer_component_widget.dart';
+import '/components/navbars/top_nav_customer_component/top_nav_customer_component_widget.dart';
+import '/components/navbars/top_nav_mobile/top_nav_mobile_widget.dart';
 import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -530,6 +531,11 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                           ),
                         ),
                       ),
+                    wrapWithModel(
+                      model: _model.topNavMobileModel,
+                      updateCallback: () => setState(() {}),
+                      child: TopNavMobileWidget(),
+                    ),
                     Align(
                       alignment: AlignmentDirectional(0.00, -1.00),
                       child: wrapWithModel(

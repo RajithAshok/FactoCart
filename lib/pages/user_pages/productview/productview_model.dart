@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/navbars/add_bottom_sheet/add_bottom_sheet_widget.dart';
 import '/components/navbars/bottom_navbar_component/bottom_navbar_component_widget.dart';

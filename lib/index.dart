@@ -42,6 +42,8 @@ export '/pages/user_pages/checkout_copy/checkout_copy_widget.dart'
 export '/pages/vendor_pages/orderhistory_copy/orderhistory_copy_widget.dart'
     show OrderhistoryCopyWidget;
 export '/pages/user_pages/faq_page/faq_page_widget.dart' show FaqPageWidget;
-export '/test_page/test_page_widget.dart' show TestPageWidget;
 export '/pages/auth/define_user_type/define_user_type_widget.dart'
     show DefineUserTypeWidget;
+export '/pages/user_pages/about_us/about_us_widget.dart' show AboutUsWidget;
+export '/pages/user_pages/our_policy/our_policy_widget.dart'
+    show OurPolicyWidget;

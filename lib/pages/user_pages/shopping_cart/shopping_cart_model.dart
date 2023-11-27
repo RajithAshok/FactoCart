@@ -2,7 +2,8 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/navbars/bottom_navbar_component/bottom_navbar_component_widget.dart';
-import '/components/top_nav_customer_component/top_nav_customer_component_widget.dart';
+import '/components/navbars/top_nav_customer_component/top_nav_customer_component_widget.dart';
+import '/components/navbars/top_nav_mobile/top_nav_mobile_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -18,6 +19,8 @@ class ShoppingCartModel extends FlutterFlowModel<ShoppingCartWidget> {
   final unfocusNode = FocusNode();
   // Model for BottomNavbarComponent component.
   late BottomNavbarComponentModel bottomNavbarComponentModel;
+  // Model for topNav_mobile component.
+  late TopNavMobileModel topNavMobileModel;
   // Model for TopNav_customerComponent component.
   late TopNavCustomerComponentModel topNavCustomerComponentModel;
 
@@ -26,6 +29,7 @@ class ShoppingCartModel extends FlutterFlowModel<ShoppingCartWidget> {
   void initState(BuildContext context) {
     bottomNavbarComponentModel =
         createModel(context, () => BottomNavbarComponentModel());
+    topNavMobileModel = createModel(context, () => TopNavMobileModel());
     topNavCustomerComponentModel =
         createModel(context, () => TopNavCustomerComponentModel());
   }
@@ -33,6 +37,7 @@ class ShoppingCartModel extends FlutterFlowModel<ShoppingCartWidget> {
   void dispose() {
     unfocusNode.dispose();
     bottomNavbarComponentModel.dispose();
+    topNavMobileModel.dispose();
     topNavCustomerComponentModel.dispose();
   }
 

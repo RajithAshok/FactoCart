@@ -356,6 +356,65 @@ class _TopNavCustomerComponentWidgetState
                             ),
                           ),
                         ),
+                        if (currentUserReference?.id == null ||
+                            currentUserReference?.id == '')
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 16.0, 0.0),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.goNamed(
+                                  'AuthPage',
+                                  extra: <String, dynamic>{
+                                    kTransitionInfoKey: TransitionInfo(
+                                      hasTransition: true,
+                                      transitionType: PageTransitionType.scale,
+                                      alignment: Alignment.bottomCenter,
+                                      duration: Duration(milliseconds: 500),
+                                    ),
+                                  },
+                                );
+                              },
+                              child: Container(
+                                width: 146.0,
+                                height: 50.0,
+                                decoration: BoxDecoration(
+                                  color:
+                                      widget.selectedPageIndex.toString() == '3'
+                                          ? FlutterFlowTheme.of(context)
+                                              .primaryBackground
+                                          : FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  shape: BoxShape.rectangle,
+                                  border: Border.all(
+                                    color: FlutterFlowTheme.of(context)
+                                        .backgroundComponents,
+                                    width: 0.5,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      8.0, 8.0, 8.0, 8.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Login/Sign Up',
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelLarge,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                         if (responsiveVisibility(
                           context: context,
                           phone: false,
@@ -383,47 +442,49 @@ class _TopNavCustomerComponentWidgetState
                               ),
                             ),
                           ),
-                        InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            context.pushNamed(
-                              'profile',
-                              extra: <String, dynamic>{
-                                kTransitionInfoKey: TransitionInfo(
-                                  hasTransition: true,
-                                  transitionType: PageTransitionType.fade,
-                                  duration: Duration(milliseconds: 0),
-                                ),
-                              },
-                            );
-                          },
-                          child: Container(
-                            width: 44.0,
-                            height: 44.0,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFE0E3E7),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  2.0, 2.0, 2.0, 2.0),
-                              child: AuthUserStreamWidget(
-                                builder: (context) => ClipRRect(
-                                  borderRadius: BorderRadius.circular(60.0),
-                                  child: Image.network(
-                                    currentUserPhoto,
-                                    width: 80.0,
-                                    height: 80.0,
-                                    fit: BoxFit.cover,
+                        if (currentUserReference?.id != null &&
+                            currentUserReference?.id != '')
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              context.pushNamed(
+                                'profile',
+                                extra: <String, dynamic>{
+                                  kTransitionInfoKey: TransitionInfo(
+                                    hasTransition: true,
+                                    transitionType: PageTransitionType.fade,
+                                    duration: Duration(milliseconds: 0),
+                                  ),
+                                },
+                              );
+                            },
+                            child: Container(
+                              width: 44.0,
+                              height: 44.0,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFE0E3E7),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    2.0, 2.0, 2.0, 2.0),
+                                child: AuthUserStreamWidget(
+                                  builder: (context) => ClipRRect(
+                                    borderRadius: BorderRadius.circular(60.0),
+                                    child: Image.network(
+                                      currentUserPhoto,
+                                      width: 80.0,
+                                      height: 80.0,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
                       ],
                     ),
                   ),

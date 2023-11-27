@@ -231,14 +231,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => FaqPageWidget(),
         ),
         FFRoute(
-          name: 'testPage',
-          path: '/testPage',
-          builder: (context, params) => TestPageWidget(),
-        ),
-        FFRoute(
           name: 'defineUserType',
           path: '/defineUserType',
           builder: (context, params) => DefineUserTypeWidget(),
+        ),
+        FFRoute(
+          name: 'aboutUs',
+          path: '/aboutUs',
+          builder: (context, params) => AboutUsWidget(),
+        ),
+        FFRoute(
+          name: 'ourPolicy',
+          path: '/ourPolicy',
+          builder: (context, params) => OurPolicyWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
